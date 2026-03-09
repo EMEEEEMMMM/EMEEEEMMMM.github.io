@@ -43,7 +43,7 @@ jobs:
           hugo \
             --gc \
             --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+            --baseURL "https://EMEEEEMMMM.github.io/"
       
       - name: upload the build©
         uses: actions/upload-pages-artifact@v3
