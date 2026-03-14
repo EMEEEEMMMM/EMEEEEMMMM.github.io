@@ -6,7 +6,8 @@ image:
 math: 
 license: 
 comments: true
-draft: true
+categories:
+tags:
 build:
     list: always    # Change to "never" to hide the page from the list
 ---

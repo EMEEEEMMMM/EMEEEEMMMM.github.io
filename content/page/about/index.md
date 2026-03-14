@@ -12,6 +12,8 @@ menu:
 
 ## Welcome
 
+I am currently a 10th student from Shanghai World Foreign Language Academy.
+
 This blog will documents my journey building **physics engines and simulation systems** from scratch.
 
 Will also include some AI stuff, notes, mathematical stuff.

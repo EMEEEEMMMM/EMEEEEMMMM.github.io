@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="determines the position of the objects at the next moment">
+<title>The Integrator</title>
+
+
+<link rel="canonical" href="http://localhost:1313/posts/theintegrator/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="The Integrator">
+<meta property='og:description' content="determines the position of the objects at the next moment">
+<meta property='og:url' content='http://localhost:1313/posts/theintegrator/'>
+<meta property='og:site_name' content='My Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Physics' /><meta property='article:tag' content='AtlasPhys' /><meta property='article:tag' content='Integrator' /><meta property='article:published_time' content='2026-03-13T23:07:28&#43;08:00'/><meta property='article:modified_time' content='2026-03-13T23:07:28&#43;08:00'/><meta property='og:image' content='http://localhost:1313/' />
+<meta name="twitter:title" content="The Integrator">
+<meta name="twitter:description" content="determines the position of the objects at the next moment"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/' />
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.png" 
+                        width="240"
+                        height="240"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Blog</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/EMEEEEMMMM?tab=repositories'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/posts/theintegrator/">
+            <img alt="Featured image of post The Integrator" height="928" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/posts/theintegrator/cover.png" srcset="/posts/theintegrator/cover_hu_efee659667d076ae.png 800w, /posts/theintegrator/cover.png 1140w" width="1140">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/atlasphys/" style="background-color: hsl(292, 60%, 84%); color: hsl(292, 60%, 15%);">
+                AtlasPhys
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/theintegrator/">The Integrator</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            determines the position of the objects at the next moment
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-03-13T23:07:28&#43;08:00'>Friday, March 13, 2026</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        4 minutes read
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="the-physical-model">The Physical Model
+</h2><p>All integration algorithms are derived from Newton&rsquo;s second law of motion. For a particle subjected to a force $F$:</p>
+$$
+\begin{align}
+F = ma = m \frac{d^2x}{dt^2}
+\end{align}
+$$<p>We usually split it into two first-order differential equation:</p>
+$$
+\left\{
+\begin{aligned}
+\frac{dx}{dt} & = v \\
+\frac{dv}{dt} & = a = \frac{F_{net}}{m}
+\end{aligned}
+\right.
+$$<h3 id="explicit-euler">Explicit Euler
+</h3><p>This is the most intuitive solution, assume the step is $\Delta t$:
+</p>
+$$
+x_{n+1} = x_{n} + v_{n} \Delta t \\
+v_{n+1} = v_{n} + a_{n} \Delta t
+$$<p>But it is extremely unreliable since it actually assumes that in a step, the velocity and the acceleration are constant.</p>
+<h3 id="semi-implicit-euler">Semi-Implicit Euler
+</h3><p>This is what I used in my project and it has just a slightly change compare to Explicit Euler, it updates the velocity and uses the new velocity to update the position.</p>
+$$
+v_{n+1} = v_{n} + a_{n} \Delta t \\
+x_{n+1} = x_{n} + v_{n+1} \Delta t
+$$<p>It is much more reliable than the Explicit Euler.</p>
+<p>Note: Rk4 and Implicit Euler is not considered here since they much more complicated than the above two methods and in most cases, semi-implicit euler can do its job pretty well.</p>
+<h2 id="the-moment-of-inertia-matrix">The Moment of Inertia Matrix
+</h2><p>In 3D space, the &ldquo;resistance to rotation&rdquo; of an object is different for different axis. This cannot be expressed by a constant, but rather as a matrix of 3x3, which completely describes the distribution of mass in all directions. As long as the shape of the object does not collapse, this $I_{body}$ will not change.</p>
+<p>For the world coordinate system, the &ldquo;resistance to rotation&rdquo; of the object is keep changing with its posture. Which means that, we must convert the $I_{body}$ to the $I_{world}$ all the time so that we can calculate the effect of the external forces on it correctly.</p>
+<p>We know the Angular Momentum Theorem:</p>
+$$
+L = I \omega
+$$<p>It is true for both the world space and the local space:
+</p>
+$$
+\begin{align}
+L_{local} &= I_{body} \omega_{local} \\
+L_{world} &= I_{world} \omega_{world}    
+\end{align}
+$$<p>To convert a vector from the local space to the world space, multiply current rotation matrix $R$:</p>
+$$
+\begin{align}
+L_{world} &= R L_{local} \\
+\omega_{world} &= R \omega_{local} \\
+\omega_{local} &= R^{-1} \omega_{world}
+\end{align}
+$$<blockquote class="alert alert-note">
+        <div class="alert-header">
+            <span class="alert-icon">📝</span>
+            <span class="alert-title">Note:</span>
+        </div>
+        <div class="alert-body">
+            <p></p>
+$$
+\left[
+\begin{matrix}
+R_{11} & R_{12} & R_{13} \\
+R_{21} & R_{22} & R_{23} \\
+R_{31} & R_{32} & R_{33}
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+x_{local} \\
+y_{local} \\
+z_{local}
+\end{matrix}
+\right] = \left[
+\begin{matrix}
+x_{world} \\
+y_{world} \\
+z_{world}
+\end{matrix}
+\right]
+$$
+        </div>
+    </blockquote>
+<p>Substitutes:</p>
+$$
+\begin{align}
+L_{world} &= R (I_{body} \omega_{local}) \\
+L_{world} &= R I_{body} R^{-1} \omega_{world}
+\end{align}
+$$<p>So $I_{world}$ is equal to:</p>
+$$
+I_{world} = R I_{body} R^{-1}
+$$<p>And in the physics engine, we care about its inverse matrix because we need it to calculate the angular acceleration.</p>
+$$
+\begin{align}
+I_{world}^{-1} &= (R I_{body} R^{-1})^{-1} \\ 
+I_{world}^{-1} &= (R^{-1})^{-1} I_{body}^{-1} R^{-1} \\
+R^{-1} &= R^T \\
+I_{world}^{-1} &= R I_{body}^{-1} R^T \\
+\end{align}
+$$<blockquote class="alert alert-note">
+        <div class="alert-header">
+            <span class="alert-icon">📝</span>
+            <span class="alert-title">Note: Replace the $R^{-1}$ by $R^T$ is because calculate $R^T$ is much faster than $R^{-1}$.</span>
+        </div>
+        <div class="alert-body">
+            
+        </div>
+    </blockquote>
+<h2 id="the-angular-acceleration">The Angular Acceleration
+</h2>$$
+\begin{align}
+\tau &= \frac{dL}{dt} \\
+L &= I \omega 
+\end{align}
+$$<p>Assume $I$ stays constant in a short period of time:
+</p>
+$$
+\tau = \frac{d(I\omega)}{dt} = I\frac{d\omega}{dt} \\
+\tau = I \alpha
+$$<p>In 3D space, $\tau$ and $\alpha$ are vectors with size 3x1. $I$ is a matrix of size 3x3.</p>
+$$
+\left[
+\begin{matrix}
+\tau_{x} \\
+\tau_{y} \\
+\tau_{z}
+\end{matrix}
+\right]
+= \left[
+\begin{matrix}
+I_{xx} & I_{xy} & I_{xz} \\
+I_{yx} & I_{yy} & I_{yz} \\
+I_{zx} & I_{zy} & I_{zz} \\
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+\alpha_{x} \\
+\alpha_{y} \\ 
+\alpha_{z}
+\end{matrix}
+\right] \\
+\begin{align}
+I^{-1} \tau &= (I^{-1}I)\alpha \\
+I^{-1} \tau &= \alpha \\
+\alpha &= I_{world}^{-1} \tau \\
+\omega_{n+1} &= \omega_{n} + \alpha \Delta t
+\end{align}
+$$<h2 id="summary">Summary
+</h2><p>So, for each object in every time step, these should be updated by the integrator:
+</p>
+$$
+\begin{align}
+v_{n+1} &= v_{n} + a_{n} \Delta t \\
+x_{n+1} &= x_{n} + v_{n+1} \Delta t \\
+I_{world}^{-1} &= R I_{body}^{-1} R^T \\
+\alpha &= I_{world}^{-1} \tau \\
+\omega_{n+1} &= \omega_{n} + \alpha \Delta t
+\end{align}
+$$
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/physics/">Physics</a>
+        
+            <a href="/tags/atlasphys/">AtlasPhys</a>
+        
+            <a href="/tags/integrator/">Integrator</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+        <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.9797c9248205e1422b8c92d4535afe3ea656f786b4d0abb1fb894526b8b0632c.js" defer></script>
+
+
+    </body>
+</html>
