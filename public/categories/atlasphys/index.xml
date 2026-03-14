@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>AtlasPhys on My Blog</title>
+        <title>Atlas Phys on My Blog</title>
         <link>http://localhost:1313/categories/atlasphys/</link>
-        <description>Recent content in AtlasPhys on My Blog</description>
+        <description>Recent content in Atlas Phys on My Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Fri, 13 Mar 2026 23:07:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/atlasphys/index.xml" rel="self" type="application/rss+xml" /><item>
