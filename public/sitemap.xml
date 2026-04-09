@@ -3,27 +3,39 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/categories/atlasphys/</loc>
-    <lastmod>2026-03-13T23:07:28+08:00</lastmod>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/atlasphys/</loc>
-    <lastmod>2026-03-13T23:07:28+08:00</lastmod>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2026-03-13T23:07:28+08:00</lastmod>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/integrator/</loc>
-    <lastmod>2026-03-13T23:07:28+08:00</lastmod>
+    <loc>http://localhost:1313/posts/foundationsofvectorsandmatrices/</loc>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/math/</loc>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/matrices/</loc>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2026-03-13T23:07:28+08:00</lastmod>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/physics/</loc>
-    <lastmod>2026-03-13T23:07:28+08:00</lastmod>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2026-03-13T23:07:28+08:00</lastmod>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/vectors/</loc>
+    <lastmod>2026-04-04T11:47:35+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/integrator/</loc>
     <lastmod>2026-03-13T23:07:28+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/theintegrator/</loc>

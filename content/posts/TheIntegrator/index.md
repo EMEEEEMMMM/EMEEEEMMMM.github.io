@@ -4,7 +4,7 @@ description: determines the position of the objects at the next moment
 date: 2026-03-13T23:07:28+08:00
 image: cover.png
 math: true
-license: 
+license: CC BY-NC-SA 4.0
 comments: true
 categories:
     - AtlasPhys
