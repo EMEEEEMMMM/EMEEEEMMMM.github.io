@@ -7,10 +7,14 @@ math: true
 license: CC BY-NC-SA 4.0
 comments: true
 categories:
+    - AtlasPhys
 tags:
+    - Physics
+    - AtlasPhys
+    - Math
+    - Vectors
 build:
     list: always    # Change to "never" to hide the page from the list
-draft: true
 ---
 
 # Problem:
@@ -58,8 +62,8 @@ $$
 According to Impulse-Momentum Theorem ($\Delta v=\frac{J}{m}$):
 $$
 \begin{align}
-v_{A}'=v_{A}-\frac{j}{m}n \\
-v_{B}'=v_{B}+\frac{j}{m}n
+v_{A}'=v_{A}-\frac{j}{m_{A}}n \\
+v_{B}'=v_{B}+\frac{j}{m_{B}}n
 \end{align}
 $$
 The impulse also applies a torque which changes the angular velocities ($\Delta \omega = I^{-1}(r \times J)$):
@@ -99,7 +103,7 @@ v_{rel}'&=v_{rel}+j(\frac{n}{m_{A}} + (I^{-1}_{A}(r_{A}\times n)) \times r_{A} +
 $$
 According to Newton's law of Restitution, the ratio of the relative speed of separation and the relative speed of approach when two objects collide equals to the coefficient of restitution.
 $$
-v_{rel}' \cdot n = -e (v_{rel} \cdot n)
+v_{rel}' \cdot n = -e (v_{rel} \cdot n), e \in [0, 1]
 $$
 Substitute $v_{rel}'$ and simplify the equation:
 $$

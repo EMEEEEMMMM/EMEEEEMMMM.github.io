@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="determines the position of the objects at the next moment">
-<title>The Integrator</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Problem: For a rigid body A with mass $m_{A}$ and another rigid body B with mass $m_{B}$ collide with linear velocity $v_{A},v_{B}$ respectively, solve for the scalar impulse $j$ of the two object. Friction is negligible.\nVariables: Symbol Definition $m_{A},m_{B}$ Mass of object A and B $I_{A},I_{B}$ Moment of inertia tensor of object A and B $x_{A},x_{B}$ Center of Mass $P$ Contact point $r_{A},r_{B}$ $P-x$ $v_{A},v_{B}$ linear velocity before impact $\\omega_{A},\\omega_{B}$ Angular velocity before impact $v_{PA},v_{PB}$ Absolute linear velocity of the contact point $v_{rel}$ relative velocity of contact point $n$ Contact normal (unit vector) $e$ coefficient of restitution $J$ impulse vector $j$ impulse scalar Derivation: The velocity of any point on a rigid body is the sum of its linear velocity and its tangential velocity due to rotation. From the definition:\n">
+<title>Impulse Solution</title>
 
 
-<link rel="canonical" href="http://localhost:1313/posts/theintegrator/">
+<link rel="canonical" href="http://localhost:1313/posts/impulsesolution/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 
 
-<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="The Integrator">
-<meta property='og:description' content="determines the position of the objects at the next moment">
-<meta property='og:url' content='http://localhost:1313/posts/theintegrator/'>
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="Impulse Solution">
+<meta property='og:description' content="Problem: For a rigid body A with mass $m_{A}$ and another rigid body B with mass $m_{B}$ collide with linear velocity $v_{A},v_{B}$ respectively, solve for the scalar impulse $j$ of the two object. Friction is negligible.\nVariables: Symbol Definition $m_{A},m_{B}$ Mass of object A and B $I_{A},I_{B}$ Moment of inertia tensor of object A and B $x_{A},x_{B}$ Center of Mass $P$ Contact point $r_{A},r_{B}$ $P-x$ $v_{A},v_{B}$ linear velocity before impact $\\omega_{A},\\omega_{B}$ Angular velocity before impact $v_{PA},v_{PB}$ Absolute linear velocity of the contact point $v_{rel}$ relative velocity of contact point $n$ Contact normal (unit vector) $e$ coefficient of restitution $J$ impulse vector $j$ impulse scalar Derivation: The velocity of any point on a rigid body is the sum of its linear velocity and its tangential velocity due to rotation. From the definition:\n">
+<meta property='og:url' content='http://localhost:1313/posts/impulsesolution/'>
 <meta property='og:site_name' content='My Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Physics' /><meta property='article:tag' content='AtlasPhys' /><meta property='article:tag' content='Integrator' /><meta property='article:published_time' content='2026-03-13T23:07:28&#43;08:00'/><meta property='article:modified_time' content='2026-03-13T23:07:28&#43;08:00'/><meta property='og:image' content='http://localhost:1313/' />
-<meta name="twitter:title" content="The Integrator">
-<meta name="twitter:description" content="determines the position of the objects at the next moment"><meta name="twitter:card" content="summary_large_image">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Physics' /><meta property='article:tag' content='AtlasPhys' /><meta property='article:tag' content='Math' /><meta property='article:tag' content='Vectors' /><meta property='article:published_time' content='2026-03-31T19:30:31&#43;08:00'/><meta property='article:modified_time' content='2026-03-31T19:30:31&#43;08:00'/><meta property='og:image' content='http://localhost:1313/' />
+<meta name="twitter:title" content="Impulse Solution">
+<meta name="twitter:description" content="Problem: For a rigid body A with mass $m_{A}$ and another rigid body B with mass $m_{B}$ collide with linear velocity $v_{A},v_{B}$ respectively, solve for the scalar impulse $j$ of the two object. Friction is negligible.\nVariables: Symbol Definition $m_{A},m_{B}$ Mass of object A and B $I_{A},I_{B}$ Moment of inertia tensor of object A and B $x_{A},x_{B}$ Center of Mass $P$ Contact point $r_{A},r_{B}$ $P-x$ $v_{A},v_{B}$ linear velocity before impact $\\omega_{A},\\omega_{B}$ Angular velocity before impact $v_{PA},v_{PB}$ Absolute linear velocity of the contact point $v_{rel}$ relative velocity of contact point $n$ Contact normal (unit vector) $e$ coefficient of restitution $J$ impulse vector $j$ impulse scalar Derivation: The velocity of any point on a rigid body is the sum of its linear velocity and its tangential velocity due to rotation. From the definition:\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/' />
     <link rel="shortcut icon" href="/img/avatar.png" />
 
@@ -214,55 +214,14 @@
     </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">Table of contents</h2>
-        
-        <div class="widget--toc">
-            <nav class="toc-nav" id="TableOfContents">
-                
-  <ol>
-    <li><a href="#the-physical-model">The Physical Model</a>
-      <ol>
-        <li><a href="#explicit-euler">Explicit Euler</a></li>
-        <li><a href="#semi-implicit-euler">Semi-Implicit Euler</a></li>
-      </ol>
-    </li>
-    <li><a href="#the-moment-of-inertia-matrix">The Moment of Inertia Matrix</a></li>
-    <li><a href="#the-angular-acceleration">The Angular Acceleration</a></li>
-    <li><a href="#summary">Summary</a></li>
-  </ol>
-
-            </nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
+    
 
             <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
     <div class="article-image">
-        <a href="/posts/theintegrator/">
-            <img alt="Featured image of post The Integrator" height="928" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/posts/theintegrator/cover.png" srcset="/posts/theintegrator/cover_hu_efee659667d076ae.png 800w, /posts/theintegrator/cover.png 1140w" width="1140">
+        <a href="/posts/impulsesolution/">
+            <img alt="Featured image of post Impulse Solution" height="768" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/posts/impulsesolution/cover.png" srcset="/posts/impulsesolution/cover_hu_1a1c125651c4c5f1.png 800w, /posts/impulsesolution/cover.png 1408w" width="1408">
         </a>
     </div>
     
@@ -283,13 +242,9 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/theintegrator/">The Integrator</a>
+            <a href="/posts/impulsesolution/">Impulse Solution</a>
         </h2>
     
-        
-        <h3 class="article-subtitle">
-            determines the position of the objects at the next moment
-        </h3>
         
     </div>
 
@@ -313,7 +268,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                    <time class="article-time--published" datetime='2026-03-13T23:07:28&#43;08:00'>Friday, March 13, 2026</time>
+                    <time class="article-time--published" datetime='2026-03-31T19:30:31&#43;08:00'>Tuesday, March 31, 2026</time>
                 
 
                 
@@ -326,12 +281,9 @@
 
 
                     <time class="article-time--reading">
-                        4 minutes read
+                        3 minutes read
                     </time>
                 
-
-                <span id="busuanzi_container_page_pv" style="display:none"><i class="article-icon fas fa-eye"></i><span id="busuanzi_value_page_pv"></span> 次阅读</span>
-                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             </div>
         
 
@@ -345,191 +297,156 @@
 </header>
 
     
-    <aside class="article-toc">
-        <details>
-            <summary>
-                <div class="article-toc-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
-                    <span>Table of contents</span>
-                </div>
-            </summary>
-            <nav class="toc-nav">
-                
-  <ol>
-    <li><a href="#the-physical-model">The Physical Model</a>
-      <ol>
-        <li><a href="#explicit-euler">Explicit Euler</a></li>
-        <li><a href="#semi-implicit-euler">Semi-Implicit Euler</a></li>
-      </ol>
-    </li>
-    <li><a href="#the-moment-of-inertia-matrix">The Moment of Inertia Matrix</a></li>
-    <li><a href="#the-angular-acceleration">The Angular Acceleration</a></li>
-    <li><a href="#summary">Summary</a></li>
-  </ol>
-
-            </nav>
-        </details>
-    </aside>
-    
 
     <section class="article-content">
     
     
-    <h2 id="the-physical-model">The Physical Model
-</h2><p>All integration algorithms are derived from Newton&rsquo;s second law of motion. For a particle subjected to a force $F$:</p>
+    <h1 id="problem">Problem:
+</h1><p>For a rigid body A with mass $m_{A}$ and another rigid body B with mass $m_{B}$ collide with linear velocity $v_{A},v_{B}$ respectively, solve for the scalar impulse $j$ of the two object. Friction is negligible.</p>
+<h1 id="variables">Variables:
+</h1><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Symbol</th>
+          <th>Definition</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">$m_{A},m_{B}$</td>
+          <td>Mass of object A and B</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$I_{A},I_{B}$</td>
+          <td>Moment of inertia tensor of object A and B</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$x_{A},x_{B}$</td>
+          <td>Center of Mass</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$P$</td>
+          <td>Contact point</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$r_{A},r_{B}$</td>
+          <td>$P-x$</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$v_{A},v_{B}$</td>
+          <td>linear velocity before impact</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$\omega_{A},\omega_{B}$</td>
+          <td>Angular velocity before impact</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$v_{PA},v_{PB}$</td>
+          <td>Absolute linear velocity of the contact point</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$v_{rel}$</td>
+          <td>relative velocity of contact point</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$n$</td>
+          <td>Contact normal (unit vector)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$e$</td>
+          <td>coefficient of restitution</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$J$</td>
+          <td>impulse vector</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">$j$</td>
+          <td>impulse scalar</td>
+      </tr>
+  </tbody>
+</table></div>
+<h1 id="derivation">Derivation:
+</h1><p>The velocity of any point on a rigid body is the sum of its linear velocity and its tangential velocity due to rotation.
+From the definition:</p>
 $$
 \begin{align}
-F = ma = m \frac{d^2x}{dt^2}
-\end{align}
-$$<p>We usually split it into two first-order differential equation:</p>
-$$
-\left\{
+r_{A} = P - x_{A}, r_{B} = P - x_{B} 
 \begin{aligned}
-\frac{dx}{dt} & = v \\
-\frac{dv}{dt} & = a = \frac{F_{net}}{m}
+v_{PA} &=v_{A}+\omega_{A} \times r_{A} \\
+v_{PB} &= v_{B}+\omega_{B} \times r_{B} \\
 \end{aligned}
-\right.
-$$<h3 id="explicit-euler">Explicit Euler
-</h3><p>This is the most intuitive solution, assume the step is $\Delta t$:
+\end{align}
+$$<p>The relative velocity of body B with respect to body A at the contact point:</p>
+$$
+v_{rel} = v_{PB} - v_{PA}
+$$<p>
+The impulse $J$ acts along the contact normal $n$:
 </p>
 $$
-x_{n+1} = x_{n} + v_{n} \Delta t \\
-v_{n+1} = v_{n} + a_{n} \Delta t
-$$<p>But it is extremely unreliable since it actually assumes that in a step, the velocity and the acceleration are constant.</p>
-<h3 id="semi-implicit-euler">Semi-Implicit Euler
-</h3><p>This is what I used in my project and it has just a slightly change compare to Explicit Euler, it updates the velocity and uses the new velocity to update the position.</p>
-$$
-v_{n+1} = v_{n} + a_{n} \Delta t \\
-x_{n+1} = x_{n} + v_{n+1} \Delta t
-$$<p>It is much more reliable than the Explicit Euler.</p>
-<p>Note: Rk4 and Implicit Euler is not considered here since they much more complicated than the above two methods and in most cases, semi-implicit euler can do its job pretty well.</p>
-<h2 id="the-moment-of-inertia-matrix">The Moment of Inertia Matrix
-</h2><p>In 3D space, the &ldquo;resistance to rotation&rdquo; of an object is different for different axis. This cannot be expressed by a constant, but rather as a matrix of 3x3, which completely describes the distribution of mass in all directions. As long as the shape of the object does not collapse, this $I_{body}$ will not change.</p>
-<p>For the world coordinate system, the &ldquo;resistance to rotation&rdquo; of the object is keep changing with its posture. Which means that, we must convert the $I_{body}$ to the $I_{world}$ all the time so that we can calculate the effect of the external forces on it correctly.</p>
-<p>We know the Angular Momentum Theorem:</p>
-$$
-L = I \omega
-$$<p>It is true for both the world space and the local space:
+J = jn
+$$<p>
+According to Impulse-Momentum Theorem ($\Delta v=\frac{J}{m}$):
 </p>
 $$
 \begin{align}
-L_{local} &= I_{body} \omega_{local} \\
-L_{world} &= I_{world} \omega_{world}    
+v_{A}'=v_{A}-\frac{j}{m_{A}}n \\
+v_{B}'=v_{B}+\frac{j}{m_{B}}n
 \end{align}
-$$<p>To convert a vector from the local space to the world space, multiply current rotation matrix $R$:</p>
-$$
-\begin{align}
-L_{world} &= R L_{local} \\
-\omega_{world} &= R \omega_{local} \\
-\omega_{local} &= R^{-1} \omega_{world}
-\end{align}
-$$<blockquote class="alert alert-note">
-        <div class="alert-header">
-            <span class="alert-icon">📝</span>
-            <span class="alert-title">Note:</span>
-        </div>
-        <div class="alert-body">
-            <p></p>
-$$
-\left[
-\begin{matrix}
-R_{11} & R_{12} & R_{13} \\
-R_{21} & R_{22} & R_{23} \\
-R_{31} & R_{32} & R_{33}
-\end{matrix}
-\right]
-\left[
-\begin{matrix}
-x_{local} \\
-y_{local} \\
-z_{local}
-\end{matrix}
-\right] = \left[
-\begin{matrix}
-x_{world} \\
-y_{world} \\
-z_{world}
-\end{matrix}
-\right]
-$$
-        </div>
-    </blockquote>
-<p>Substitutes:</p>
-$$
-\begin{align}
-L_{world} &= R (I_{body} \omega_{local}) \\
-L_{world} &= R I_{body} R^{-1} \omega_{world}
-\end{align}
-$$<p>So $I_{world}$ is equal to:</p>
-$$
-I_{world} = R I_{body} R^{-1}
-$$<p>And in the physics engine, we care about its inverse matrix because we need it to calculate the angular acceleration.</p>
-$$
-\begin{align}
-I_{world}^{-1} &= (R I_{body} R^{-1})^{-1} \\ 
-I_{world}^{-1} &= (R^{-1})^{-1} I_{body}^{-1} R^{-1} \\
-R^{-1} &= R^T \\
-I_{world}^{-1} &= R I_{body}^{-1} R^T \\
-\end{align}
-$$<blockquote class="alert alert-note">
-        <div class="alert-header">
-            <span class="alert-icon">📝</span>
-            <span class="alert-title">Note: Replace the $R^{-1}$ by $R^T$ is because calculate $R^T$ is much faster than $R^{-1}$.</span>
-        </div>
-        <div class="alert-body">
-            
-        </div>
-    </blockquote>
-<h2 id="the-angular-acceleration">The Angular Acceleration
-</h2>$$
-\begin{align}
-\tau &= \frac{dL}{dt} \\
-L &= I \omega 
-\end{align}
-$$<p>Assume $I$ stays constant in a short period of time:
-</p>
-$$
-\tau = \frac{d(I\omega)}{dt} = I\frac{d\omega}{dt} \\
-\tau = I \alpha
-$$<p>In 3D space, $\tau$ and $\alpha$ are vectors with size 3x1. $I$ is a matrix of size 3x3.</p>
-$$
-\left[
-\begin{matrix}
-\tau_{x} \\
-\tau_{y} \\
-\tau_{z}
-\end{matrix}
-\right]
-= \left[
-\begin{matrix}
-I_{xx} & I_{xy} & I_{xz} \\
-I_{yx} & I_{yy} & I_{yz} \\
-I_{zx} & I_{zy} & I_{zz} \\
-\end{matrix}
-\right]
-\left[
-\begin{matrix}
-\alpha_{x} \\
-\alpha_{y} \\ 
-\alpha_{z}
-\end{matrix}
-\right] \\
-\begin{align}
-I^{-1} \tau &= (I^{-1}I)\alpha \\
-I^{-1} \tau &= \alpha \\
-\alpha &= I_{world}^{-1} \tau \\
-\omega_{n+1} &= \omega_{n} + \alpha \Delta t
-\end{align}
-$$<h2 id="summary">Summary
-</h2><p>So, for each object in every time step, these should be updated by the integrator:
+$$<p>
+The impulse also applies a torque which changes the angular velocities ($\Delta \omega = I^{-1}(r \times J)$):
 </p>
 $$
 \begin{align}
-v_{n+1} &= v_{n} + a_{n} \Delta t \\
-x_{n+1} &= x_{n} + v_{n+1} \Delta t \\
-I_{world}^{-1} &= R I_{body}^{-1} R^T \\
-\alpha &= I_{world}^{-1} \tau \\
-\omega_{n+1} &= \omega_{n} + \alpha \Delta t
+\omega_{A}'=\omega_{A} - I^{-1}_{A}(r_{A}\times jn) \\
+\omega_{B}'=\omega_{B} + I^{-1}_{B}(r_{B}\times jn)
+\end{align}
+$$<p>
+Then the velocity of the contact point immediately after the impact can be expressed as:
+</p>
+$$
+\begin{align}
+v_{PA}'=v_{A}'+\omega_{A}'\times r_{A} \\ \\
+v_{PB}'=v_{B}'+\omega_{B}'\times r_{B}
+\end{align}
+$$<p>
+Substitute the equations into this expression:
+</p>
+$$
+\begin{align}
+v_{PA}' &= (v_{A}-\frac{j}{m_{A}}n)+(\omega_{A} - I^{-1}_{A}(r_{A}\times jn)) \times r_{A} \\
+v_{PB}' &= (v_{B}+\frac{j}{m_{B}}n) + (\omega_{B} + I^{-1}_{B}(r_{B}\times jn)) \times r_{B}
+\end{align}
+$$<p>
+Factor out the $j$ and simplify:
+</p>
+$$
+\begin{align}
+v_{PA}' &= v_{PA} - j[\frac{n}{m_{A}} + (I^{-1}_{A}(r_{A}\times n)) \times r_{A}] \\
+v_{PB}' &= v_{PB} + j[\frac{n}{m_{B}} + (I^{-1}_{B}(r_{B}\times n)) \times r_{B}]
+\end{align}
+$$<p>
+The new relative velocity:
+</p>
+$$
+\begin{align}
+v_{rel}'=v_{PB}'-v_{PA}'&= ((v_{B}+\frac{j}{m_{B}}n) + (\omega_{B} + I^{-1}_{B}(r_{B}\times jn)) \times r_{B}) - (v_{PA} - j[\frac{n}{m_{A}} + (I^{-1}_{A}(r_{A}\times n)) \times r_{A}]) \\
+v_{rel}'&=v_{rel}+j(\frac{n}{m_{A}} + (I^{-1}_{A}(r_{A}\times n)) \times r_{A} + \frac{n}{m_{B}} + (I^{-1}_{B}(r_{B}\times n)) \times r_{B})
+\end{align}
+$$<p>
+According to Newton&rsquo;s law of Restitution, the ratio of the relative speed of separation and the relative speed of approach when two objects collide equals to the coefficient of restitution.
+</p>
+$$
+v_{rel}' \cdot n = -e (v_{rel} \cdot n), e \in [0, 1]
+$$<p>
+Substitute $v_{rel}&rsquo;$ and simplify the equation:
+</p>
+$$
+\begin{align}
+\left[ v_{rel}+j\left( \frac{n}{m_{A}} + (I^{-1}_{A}(r_{A}\times n)) \times r_{A} + \frac{n}{m_{B}} + (I^{-1}_{B}(r_{B}\times n)) \times r_{B} \right) \right] \cdot n &= -e (v_{rel} \cdot n) \\
+j\left( \frac{n}{m_{A}} + (I^{-1}_{A}(r_{A}\times n)) \times r_{A} + \frac{n}{m_{B}} + (I^{-1}_{B}(r_{B}\times n)) \times r_{B} \right) \cdot n &= -(1+e)(v_{rel} \cdot n) \\
+j = \frac{-(1+e)(v_{rel} \cdot n)}{\left( \frac{n}{m_{A}} + (I^{-1}_{A}(r_{A}\times n)) \times r_{A} + \frac{n}{m_{B}} + (I^{-1}_{B}(r_{B}\times n)) \times r_{B} \right) \cdot n } \\
+j = \frac{-(1+e)(v_{rel} \cdot n)}{ \frac{1}{m_{A}} + \frac{1}{m_{B}} + \left[(I^{-1}_{A}(r_{A}\times n)) \times r_{A} + (I^{-1}_{B}(r_{B}\times n)) \times r_{B} \right] \cdot n }
 \end{align}
 $$
 </section>
@@ -543,7 +460,9 @@ $$
         
             <a href="/tags/atlasphys/">AtlasPhys</a>
         
-            <a href="/tags/integrator/">Integrator</a>
+            <a href="/tags/math/">Math</a>
+        
+            <a href="/tags/vectors/">Vectors</a>
         
     </section>
 
@@ -625,16 +544,16 @@ $$
             
                 
 <article class="has-image">
-    <a href="/posts/impulsesolution/">
+    <a href="/posts/theintegrator/">
         
         <div class="article-image">
-            <img alt="Featured image of post Impulse Solution" height="150" loading="lazy" src="/posts/impulsesolution/cover_hu_1b555b640f72d262.png" srcset="/posts/impulsesolution/cover_hu_1b555b640f72d262.png 1x, /posts/impulsesolution/cover_hu_7c13086ab5c7ecfd.png 2x" width="250">
+            <img alt="Featured image of post The Integrator" height="150" loading="lazy" src="/posts/theintegrator/cover_hu_8af4837400ca7c3b.png" srcset="/posts/theintegrator/cover_hu_8af4837400ca7c3b.png 1x, /posts/theintegrator/cover_hu_cad7f2d507b0b503.png 2x" width="250">
 
         </div>
         
 
-        <div class="article-details"style="background: linear-gradient(0deg, #191a1a80 0%, #ffffffC0 100%);">
-            <h2 class="article-title">Impulse Solution</h2>
+        <div class="article-details"style="background: linear-gradient(0deg, #0a0b0b80 0%, #fefefeC0 100%);">
+            <h2 class="article-title">The Integrator</h2>
         </div>
     </a>
 </article>
