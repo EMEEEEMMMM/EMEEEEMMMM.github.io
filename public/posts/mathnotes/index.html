@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="My notes about limit, derivative, integral.">
+<title>Math Notes</title>
+
+
+<link rel="canonical" href="http://localhost:1313/posts/mathnotes/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="Math Notes">
+<meta property='og:description' content="My notes about limit, derivative, integral.">
+<meta property='og:url' content='http://localhost:1313/posts/mathnotes/'>
+<meta property='og:site_name' content='My Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Limit' /><meta property='article:tag' content='Math' /><meta property='article:tag' content='Derivative' /><meta property='article:tag' content='Trigonometry' /><meta property='article:tag' content='Integral' /><meta property='article:tag' content='Calculus' /><meta property='article:published_time' content='2026-04-28T17:40:36&#43;08:00'/><meta property='article:modified_time' content='2026-04-28T17:40:36&#43;08:00'/><meta property='og:image' content='http://localhost:1313/' />
+<meta name="twitter:title" content="Math Notes">
+<meta name="twitter:description" content="My notes about limit, derivative, integral."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/' />
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.png" 
+                        width="240"
+                        height="240"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Blog</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/EMEEEEMMMM?tab=repositories'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#more-integration-formula">More Integration Formula:</a></li>
+    <li><a href="#u-substitution-method">U-Substitution Method:</a></li>
+    <li><a href="#integration-by-parts">Integration by Parts:</a></li>
+    <li><a href="#trigonometrical-substitution">Trigonometrical substitution:</a></li>
+    <li><a href="#integration-by-partial-fractions">Integration by Partial Fractions:</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#the-disc-method">The Disc Method:</a></li>
+    <li><a href="#the-washer-method">The Washer Method:</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#parametric-curves">Parametric Curves:</a>
+      <ol>
+        <li><a href="#area">Area:</a></li>
+        <li><a href="#arc-length-for-parametric-curves">Arc Length for Parametric Curves:</a></li>
+        <li><a href="#surface-area-for-parametric-curves">Surface Area for Parametric Curves:</a></li>
+      </ol>
+    </li>
+    <li><a href="#polar-curves">Polar Curves</a>
+      <ol>
+        <li><a href="#area-for-polar-curves">Area for Polar Curves:</a></li>
+        <li><a href="#arc-length-for-polar-curves">Arc Length for Polar Curves:</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#separable-differential-equations">Separable Differential Equations:</a></li>
+    <li><a href="#logistic-differential-equations">Logistic Differential Equations:</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/posts/mathnotes/">
+            <img alt="Featured image of post Math Notes" height="167" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/posts/mathnotes/cover.png" srcset="/posts/mathnotes/cover_hu_4c530b2408c238de.png 800w, /posts/mathnotes/cover.png 1024w" width="1024">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/notes/" style="background-color: hsl(298, 60%, 84%); color: hsl(298, 60%, 15%);">
+                Notes
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/mathnotes/">Math Notes</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            My notes about limit, derivative, integral.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-04-28T17:40:36&#43;08:00'>Tuesday, April 28, 2026</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        8 minutes read
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>Table of contents</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#more-integration-formula">More Integration Formula:</a></li>
+    <li><a href="#u-substitution-method">U-Substitution Method:</a></li>
+    <li><a href="#integration-by-parts">Integration by Parts:</a></li>
+    <li><a href="#trigonometrical-substitution">Trigonometrical substitution:</a></li>
+    <li><a href="#integration-by-partial-fractions">Integration by Partial Fractions:</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#the-disc-method">The Disc Method:</a></li>
+    <li><a href="#the-washer-method">The Washer Method:</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#parametric-curves">Parametric Curves:</a>
+      <ol>
+        <li><a href="#area">Area:</a></li>
+        <li><a href="#arc-length-for-parametric-curves">Arc Length for Parametric Curves:</a></li>
+        <li><a href="#surface-area-for-parametric-curves">Surface Area for Parametric Curves:</a></li>
+      </ol>
+    </li>
+    <li><a href="#polar-curves">Polar Curves</a>
+      <ol>
+        <li><a href="#area-for-polar-curves">Area for Polar Curves:</a></li>
+        <li><a href="#arc-length-for-polar-curves">Arc Length for Polar Curves:</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#separable-differential-equations">Separable Differential Equations:</a></li>
+    <li><a href="#logistic-differential-equations">Logistic Differential Equations:</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h1 id="trigonometry">Trigonometry:
+</h1>$$
+\begin{align}
+& \sin x = \frac{1}{\csc x} \\
+& \cos x = \frac{1}{\sec x} \\
+& \tan x = \frac{1}{\cot x} \\
+& \tan^2 \theta + 1 = \sec^2 \theta \\
+& \cot^2 \theta + 1 = \csc^2 \theta \\
+& \arcsin x + \arccos x = \frac{\pi}{2} \\
+&f(x)=\arctan x + \arctan \frac{1}{x}=\begin{cases}
+\frac{\pi}{2}, x > 0 \\
+-\frac{\pi}{2}, x < 0
+\end{cases}
+\end{align}
+$$<h1 id="limits">Limits:
+</h1>$$
+\begin{align}
+\lim_{x \to 0} \frac{\sin (x)}{x} &= 1  \\
+e = \lim_{x \to \infty} (1+\frac{1}{x})^x&=\lim_{x \to 0^+} (1+x)^{\frac{1}{x}} \\
+\end{align}
+$$<h1 id="derivative-and-integral">Derivative and Integral:
+</h1><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>Derivative</th>
+          <th>Integral</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$$\frac{d}{dx}x^n = nx^{n-1} $$</td>
+          <td>$$\int x^n dx= \frac{1}{n+1} x^{n+1} + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} \sin x = \cos x$$</td>
+          <td>$$\int \cos x \ dx = \sin x + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} \cos x = - \sin x$$</td>
+          <td>$$\int \sin x \ dx = - \cos x + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx}\ln(x) = \frac{1}{x}$$</td>
+          <td>$$\int \frac{1}{x} dx = \ln \lvert x \rvert + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} e^x = e^x$$</td>
+          <td>$$\int e^x dx = e^x + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} a^x = a^x \times \ln a$$</td>
+          <td>$$\int a^x dx=\frac{a^x}{\ln(a)} + C, a>0,a\neq1$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} \tan x=\sec^2 x$$</td>
+          <td>$$\int \sec^2 x \ dx = \tan x + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} \cot x = -csc^2x$$</td>
+          <td>$$\int \csc^2 x \ dx = - \cot x + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} \sec x = \sec x \cdot \tan x$$</td>
+          <td>$$\int \sec x \cdot \tan x \ dx = \sec x + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} \csc x = - \csc x \cdot \cot x$$</td>
+          <td>$$\int \csc x \cdot \cot x \ dx = - \csc x + C $$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} \arcsin x = \frac{1}{\sqrt{ 1-x^2 }}$$</td>
+          <td>$$\int \frac{1}{\sqrt{1-x^2}}dx=\arcsin x + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} \arccos x = - \frac{1}{\sqrt{ 1-x^2 }}$$</td>
+          <td>$$\int -\frac{1}{\sqrt{1-x^2}}dx = \arccos x + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} \arctan x = \frac{1}{1+x^2}$$</td>
+          <td>$$\int \frac{1}{1+x^2}dx = \arctan x + C$$</td>
+      </tr>
+      <tr>
+          <td>$$\frac{d}{dx} sec^{-1} x = \frac{1}{\lvert x \rvert \sqrt{x^2 - 1}}$$</td>
+          <td>$$\int \frac{1}{\lvert x \rvert \sqrt{x^2-1}}dx = sec^{-1}x + C$$</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="more-integration-formula">More Integration Formula:
+</h2>$$
+\begin{align}
+\int \tan x \ dx &= \ln \lvert \sec x \rvert + C \ or \ -\ln\lvert \cos x \rvert + C \\
+\int \cot x \ dx &= \ln \lvert \sin x \rvert + C \ or \ -\ln\lvert \csc x \rvert + C \\
+\int \sec x \ dx &= \ln \lvert \sec x + \tan x \rvert + C \\
+\int \csc x \ dx &= \ln \lvert \csc x - \cot x \rvert + C \\
+\int \ln x \ dx &= x \ \ln \lvert x \rvert  - x + C \\
+\int \frac{1}{\sqrt{a^2-x^2}} dx &= \arcsin(\frac{x}{a}) + C \\
+\int \frac{1}{a^2+x^2} dx &= \frac{1}{a} \arctan (\frac{x}{a}) + C \\
+\int \frac{1}{x{\sqrt{x^2-a^2}}} dx &= \frac{1}{a} \sec^{-1}\lvert\frac{x}{a} \rvert + C \ or \ \frac{1}{a} \arccos \lvert \frac{a}{x} \rvert + C \\
+\int \sin^2 x \ dx &= \frac{x}{2} - \frac{\sin 2x}{4} + C
+\end{align}
+$$<h2 id="u-substitution-method">U-Substitution Method:
+</h2><p>If $f(g(x))$ and $f \prime$ are continuous and $F \prime = f$, then
+</p>
+$$\int f(g(x))g\prime(x)dx = F(g(x)) + C$$<p>
+Let $u=g(x)$, then $du = g \prime (x) dx$:
+</p>
+$$\int f(g(x))g\prime(x)dx = \int f(u) du = F(u) + C = F(g(x)) + C$$<h2 id="integration-by-parts">Integration by Parts:
+</h2><p>According to the product rule for differentiation:
+</p>
+$$
+\frac{d}{dx} (uv) = u \frac{dv}{dx} + v \frac{du}{dx}
+$$<p>
+Integrating tells us that:
+</p>
+$$
+uv = \int u \frac{dv}{dx} + \int v \frac{du}{dx}
+$$<p>
+Therefore:
+</p>
+$$
+\int u \frac{dv}{dx} = uv - \int v \frac{du}{dx}
+$$<h2 id="trigonometrical-substitution">Trigonometrical substitution:
+</h2><p>Find:
+</p>
+$$I = \int \sqrt{a^2-x^2}dx, a \geq 0$$<p>
+First, solve the inequality:
+</p>
+$$
+\begin{align*} \\
+a^2 - x^2 &\ge 0 \\
+\implies x^2 &\le a^2 \\
+\implies -a &\le x \le a
+\end{align*}
+$$<p>Second, substitute x with a trigonometric function and solve the integral:
+Let $x=a \sin t$, $t \in \left[-\frac{\pi}{2},\frac{\pi}{2} \right]$, then $dx = a \cdot \cos t dt$
+</p>
+$$
+\begin{align}
+I &= \int \sqrt{a^2 - (a \sin t)^2} a \cdot \cos t dt \\
+&= \int \sqrt{a^2(1-\sin^2 t)} a \cdot \cos t dt \\
+&= \int a^2 \cdot \cos^2 t \ dt \\
+&= a^2 \int \frac{\cos (2t) + 1}{2} dt \\
+&= a^2 \int \frac{1}{2} \cos 2t + \frac{1}{2} dt \\
+&= \frac{a^2}{2} \sin t \cdot \cos t + \frac{a^2}{2} \cdot t + C
+\end{align}
+$$<p>
+Third, substitute x back into the expression by imagining a &ldquo;fake&rdquo; triangle:
+</p>
+$$
+\begin{align}
+I &= \frac{x}{2} \sqrt{a^2 - x^2} + \frac{a^2}{2} \arcsin (\frac{x}{a}) + C
+\end{align}
+$$<h2 id="integration-by-partial-fractions">Integration by Partial Fractions:
+</h2><p>Factor the denominator of the function, list the equations and solve them using the undetermined coefficient method. The big function will be split into two or more small functions which are easier to integrate than a whole big function.</p>
+<h1 id="first-fundamental-theorems-of-calculus">First-Fundamental Theorems of Calculus:
+</h1><p>If $f$ is continuous on $[a, b]$ and $F$ is an anti derivative of  $f$ on $[a, b]$, then
+</p>
+$$
+\begin{align}
+&\int_a^b f(x) dx = F(b) - F(a) \\
+&Note: \ F(b) - F(a) \ is \ often \ denoted \ as [F(x)]^b_a
+\end{align}
+$$<h1 id="area-between-two-curves">Area Between Two curves:
+</h1>$$
+\begin{align}
+A = \int^b_a(upper \ curve - lower \ curve) dx
+\end{align}
+$$<h1 id="volumes-and-definite-integrals">Volumes and Definite Integrals:
+</h1><h2 id="the-disc-method">The Disc Method:
+</h2><p>Revolving about a line $y=k$:
+</p>
+$$
+V = \pi \int^b_c(f(x) - k)^2 dx, where \ \lvert f(x) - k \rvert = radius
+$$<p>
+Revolving about a line $x=b$:
+</p>
+$$
+V = \pi \int^d_c (g(y) - h)^2 dy, where \ \lvert g(y) - h \rvert = radius
+$$<h2 id="the-washer-method">The Washer Method:
+</h2><p>The volume of a solid (with a hole in the middle) generated by revolving a region bounded by 2 curves:
+About a line $x=h$:
+</p>
+$$
+V = \pi \int^b_a \left[ (f(x) - h)^2 - (g(x) - h)^2 \right]dx
+$$<p>
+About a line $y=k$:
+</p>
+$$
+V = \pi \int^d_c \left[(p(y) - k)^2 - (q(y) - k)^2 \right]dy
+$$<h1 id="integration-of-parametric-polar-curves">Integration of Parametric, Polar Curves:
+</h1><h2 id="parametric-curves">Parametric Curves:
+</h2><h3 id="area">Area:
+</h3><p>For a curve defined parametrically by $x=f(t)$ and $y=g(t)$, the area bounded by the curve between $t=\alpha$ and $t=\beta$ is $A = \int^\beta_\alpha g(t)f\prime(t)dt$.</p>
+<h3 id="arc-length-for-parametric-curves">Arc Length for Parametric Curves:
+</h3><p>The length of that arc is $L = \int^\beta_\alpha \sqrt{(\frac{dx}{dt})^2+(\frac{dy}{dt})^2} dt$.</p>
+<p>Proof:
+Divide the parametric interval $\left[\alpha, \beta \right]$ into $n$ intervals.
+</p>
+$$
+\alpha = t_0 < t_1 < t_2 < \cdots < t_n = \beta
+$$<p>
+The corresponding delta t for every interval is $\Delta t_i=t_i - t_{i-1}$,  correspond to the point on the curve is $P_i(x_i, y_i)$, where $x_i=f(t_i), y_i=g(t_i)$.
+Connect the neighboring points $P_{i-1}$ and $P_{i}$ with a straight line, the total length of which is the sum of the lengths of all the segments:
+</p>
+$$
+L_n = \Sigma_{i=1}^n \lvert P_{i-1}P_{i} \rvert
+$$<p>
+When the maximum length of the intervals $\lambda = \max (\Delta t_1, \Delta t_2, \cdots, \Delta t_n) \to 0$, the limit of $L_n$ exist, this limit is the length of the curve:
+</p>
+$$
+L = \lim_{\lambda \to 0} \Sigma_{i=1}^n \lvert P_{i-1} P_{i} \rvert
+$$<p>According to Pythagorean theorem, every segment $\lvert P_{i-1} P_{i} \rvert$ can be expressed as:
+</p>
+$$
+\begin{align}
+&\lvert P_{i-1} P_{i} \rvert = \sqrt{(\Delta x_i)^2 + (\Delta y_{i})^2} \\
+&where \ \Delta x_i = x_i - x_{i-1} = f(t_i) - f(t_{i-1}), \Delta y_i = y_i - y_{i-1} = g(t_i) - g(t_{i-1})
+\end{align}
+$$<p>According to the Lagrange mean value theorem, for every interval $\left[t_{i-1} , t_i \right]$, there must exist $\xi_i \in (t_{i-1}, t_i)$, such that $\Delta x_i = f\prime(\xi_i) \cdot \Delta t_i$. Similarly, there must also exist $\eta_i \in (t_{i-1}, t_i)$, such that $\Delta y_i = g\prime(\eta_i) \cdot \Delta t_i$.
+Substitute them into the segments&rsquo; expression:
+</p>
+$$
+\begin{align}
+\lvert P_{i-1} P_{i} \rvert &= \sqrt{(f\prime (\xi_i)\Delta t_i)^2 + (g\prime(\eta_i)\Delta t_i)^2} \\
+\lvert P_{i-1} P_{i} \rvert &= \sqrt{(f\prime (\xi_i))^2 + (g\prime(\eta_i))^2} \ \cdot \Delta t_i
+\end{align}
+$$<p>
+So the expression of the length of the curve becomes:
+</p>
+$$
+L = \lim_{\lambda \to 0} \Sigma_{i=1}^n \sqrt{(f\prime (\xi_i))^2 + (g\prime(\eta_i))^2} \ \cdot \Delta t_i
+$$<p>
+Since when  $\lambda \to 0$, the difference between $\eta_i$ and $\xi_i$ is also approaching 0 $\eta_i - \xi_i \to 0$, replacing $\eta_i$ by $\xi_i$ will remain the limit unchanged.
+According to the definition of the definite integral, when $\lambda \to 0$, the limit of Riemann sum is the definite integral on interval $\left[\alpha, \beta \right]$:
+</p>
+$$
+L = \lim_{\lambda \to 0} L_n =  \int ^\beta_\alpha \sqrt{(f\prime (t))^2 + (g\prime(t))^2} \ dt = \int^\beta_\alpha \sqrt{(\frac{dx}{dt})^2 + (\frac{dy}{dt})^2} \ dt
+$$<h3 id="surface-area-for-parametric-curves">Surface Area for Parametric Curves:
+</h3><p>The surface area created when that arc is revolved about the x-axis is
+</p>
+$$
+S = \int^\beta_\alpha 2 \pi y \sqrt{(\frac{dx}{dt})^2 + (\frac{dy}{dt})^2} dt
+$$<h2 id="polar-curves">Polar Curves
+</h2><h3 id="area-for-polar-curves">Area for Polar Curves:
+</h3><p>If $r=f(\theta)$ is a continuous polar curve on the interval $\alpha \leq \theta \leq \beta$ and $\alpha &lt; \beta &lt; \alpha + 2 \pi$, then the area enclosed by the polar curve is
+</p>
+$$
+A = \frac{1}{2} \int^\beta_\alpha \left[f(\theta)\right]^2 d\theta = \frac{1}{2} \int^\beta_\alpha r^2 d\theta
+$$<h3 id="arc-length-for-polar-curves">Arc Length for Polar Curves:
+</h3><p>For a polar graph defined on a interval $\left(\alpha, \beta \right)$, if the graph does not retrace itself in that interval and if $\frac{dr}{d\theta}$ is continuous, then the length of the arc from $\theta=\alpha$ to $\theta = \beta$ is
+</p>
+$$
+L = \int^\beta_\alpha \sqrt{r^2 + (\frac{dr}{d\theta})^2} d\theta
+$$<h1 id="differential-equations">Differential Equations
+</h1><h2 id="separable-differential-equations">Separable Differential Equations:
+</h2><ol>
+<li>Separate the variables: $g(y)dy = f(x) dx$</li>
+<li>Integrate both sides: $\int g(y) dy = \int f(x) dx$</li>
+<li>Solve for $y$ to get a general solution</li>
+<li>Substitute given conditions to get a particular solution</li>
+<li>Verify your result by differentiating</li>
+</ol>
+<h2 id="logistic-differential-equations">Logistic Differential Equations:
+</h2><p>Logistic growth is represented by the differential equation
+</p>
+$$
+\frac{dP}{dt} = kP ( 1 - \frac{P}{K})
+$$<p>
+where $P$ is the population, $K$ is the carrying capacity, and $k$ is the proportional constant.
+Derivation:
+This is a separable differential equation so
+</p>
+$$
+\begin{align}
+\frac{dP}{dt} &= \frac{kP(K-P)}{K} \\
+\frac{K}{P(K-P)} dP &= k dt \\
+\int \frac{KdP}{P(K-P)}dP &= \int k dt \\
+\int (\frac{1}{P} + \frac{1}{K-P})dP &= \int k dt \\
+\ln{\lvert P \rvert} - \ln{\lvert K-P \rvert} &= kt + C_1 \\
+\ln{\left\lvert \frac{P}{K-P} \right\rvert} &= kt + C_1 \\
+e^{kt+C_1} &= \frac{P}{K-P} \\
+let \ C_2&=e^{C_{1}} \\
+C_2 e^{kt} (K - P) &= P \\
+C_2 e^{kt} K &= P (C_2 e^{kt} + 1) \\
+P &= \frac{C_2 e^{kt} K}{C_2 e^{kt} + 1} \\
+P(t) &= \frac{K}{(\frac{1}{C_2})e^{-kt}+1}
+\end{align}
+$$
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/limit/">Limit</a>
+        
+            <a href="/tags/math/">Math</a>
+        
+            <a href="/tags/derivative/">Derivative</a>
+        
+            <a href="/tags/trigonometry/">Trigonometry</a>
+        
+            <a href="/tags/integral/">Integral</a>
+        
+            <a href="/tags/calculus/">Calculus</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+        <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.9797c9248205e1422b8c92d4535afe3ea656f786b4d0abb1fb894526b8b0632c.js" defer></script>
+
+
+    </body>
+</html>
