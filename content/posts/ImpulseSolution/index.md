@@ -10,7 +10,6 @@ categories:
     - AtlasPhys
 tags:
     - Physics
-    - AtlasPhys
     - Math
     - Vectors
 build:
