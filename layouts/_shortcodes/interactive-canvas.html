@@ -1,0 +1,6 @@
+{{- $id := .Get "id" | default "interactiveCanvas" -}}
+{{- $js := .Get "js" | default "" -}}
+<canvas id="{{ $id }}" class="interactive-canvas" width="{{ .Get "width" | default "800" }}" height="{{ .Get "height" | default "500" }}"></canvas>
+{{- if $js -}}
+<script src="{{ printf "/js/%s" $js | relURL }}" defer></script>
+{{- end -}}
