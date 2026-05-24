@@ -108,6 +108,7 @@ The standard EPA pipeline proceeds as follows:
 
 The full implementation of GJK and EPA can be find at <https://github.com/EMEEEEMMMM/AtlasPhys/blob/main/prototype_python/utils/GJK.py> and <https://github.com/EMEEEEMMMM/AtlasPhys/blob/main/prototype_python/utils/EPA.py>.
 
+The visualization of GJK made by AI.
 {{< interactive-canvas id="gjk3dCanvas" js="gjk-demo.js" >}}
 <div style="text-align: center; margin-top: -1rem; margin-bottom: 2rem;">
     <button id="nextStepBtn" style="padding: 0.6rem 1.5rem; background: #2563eb; color #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Next Step </button>

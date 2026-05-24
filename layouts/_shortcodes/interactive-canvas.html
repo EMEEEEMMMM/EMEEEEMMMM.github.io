@@ -1,6 +1,29 @@
 {{- $id := .Get "id" | default "interactiveCanvas" -}}
 {{- $js := .Get "js" | default "" -}}
-<canvas id="{{ $id }}" class="interactive-canvas" width="{{ .Get "width" | default "800" }}" height="{{ .Get "height" | default "500" }}"></canvas>
+<div class="interactive-canvas-wrap" style="position:relative;width:100%;padding-top:62.5%;">
+  <canvas id="{{ $id }}" class="interactive-canvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
+</div>
 {{- if $js -}}
 <script src="{{ printf "/js/%s" $js | relURL }}" defer></script>
+<script defer>
+window.addEventListener('load', function () {
+  const id = "{{ $id }}";
+  const c = document.getElementById(id);
+  if (!c) return;
+  const p = c.parentElement;
+  function fit() {
+    const w = p.clientWidth;
+    const h = p.clientHeight || Math.max(window.innerHeight * 0.5, 300);
+    c.style.width = '100%';
+    c.style.height = '100%';
+    try { c.width = w; c.height = h; } catch (e) {}
+    window.dispatchEvent(new Event('resize'));
+  }
+  fit();
+  if (typeof ResizeObserver !== 'undefined') {
+    try { new ResizeObserver(fit).observe(p); } catch (e) {}
+  }
+  window.addEventListener('resize', fit);
+});
+</script>
 {{- end -}}
