@@ -47,7 +47,7 @@ The furthest point on B in the direction of ${-\vec d}$:
 $${s_B}\left( {-\vec d} \right) \to \left( {{x_B},{y_B}} \right) $$
 Therefore, a point $S_{A \ominus B} (d)$, we compute:
 $$ {s_C}\left( {\vec d} \right) = {s_A}\left( {\vec d} \right) - {s_B}\left( {- \vec d} \right) \to \left( {{x_C},{y_C}} \right) $$
-![[IMG_20260213_154637.jpg]]
+![Notes](IMG_20260213_154637.jpg)
 To judge whether the simplex contains the origin, there is a classification for the linear, triangle, tetrahedral cases.
 
 The logic of the implementation of the support function in my prototype of the engine follows the following steps:
