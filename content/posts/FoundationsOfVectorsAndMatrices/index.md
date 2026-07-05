@@ -47,7 +47,7 @@ $$
 ### Vector Properties:
 
 - Commutativity of Addition: $\vec{u} + \vec{v} = \vec{v} + \vec{u}$
-- Associativity of Addition: $(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{u})$
+- Associativity of Addition: $(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{w})$
 - Distributivity: $c(\vec{u} + \vec{v}) = c\vec{u} + c\vec{v}$
 - Zero Vector: There exists a unique zero vector $\vec{0} = \left( 0, 0, \dots, 0 \right)$ such that $\vec{v} + \vec{0} = \vec{v}$.
 
