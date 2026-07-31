@@ -28,12 +28,12 @@ For example, a function $f(x,y) = 4x^3y^2+5x-7y$
 
 $$
 \begin{align}
-
 f(x,y) &= 4x^3y^2 + 5x - 7y \\
 \frac{\partial f}{\partial x} &= 12x^2y^2 + 5 \\
 \frac{\partial f}{\partial y} &= 8x^3y -7
 \end{align}
 $$
+
 ## Gradient
 Imagine the graph of the function of several variables as a mountain, the partial derivatives can tell us the slope of the mountain in one single direction. As for gradient of function of several variables, it is a vector of all the partial derivatives of the function.
 ### Representation
