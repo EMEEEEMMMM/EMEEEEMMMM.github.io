@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Prerequisite knowledge Partial Derivatives For a function of several variables, to find its partial derivative of a certain variable we can consider all the other variables as constants and apply the differentiation formula for one variable.\nRepresentation For function of one variable, its derivative can be expressed as:$\\frac{dy}{dx}$ For function of several variables, its derivative of a certain variable can be expressed as: $\\frac{\\partial f}{\\partial x}$ or $f_{x}$\nFor example, a function $f(x,y) = 4x^3y^2+5x-7y$\n">
+<title>Stable Fluids Notes</title>
+
+
+<link rel="canonical" href="http://localhost:1313/posts/stablefluidsnotes/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.0ac18e2dad4589041e5f2a36c819921dfed2760b47389a3f3fb2933ff85e4040.css"><meta property='og:title' content="Stable Fluids Notes">
+<meta property='og:description' content="Prerequisite knowledge Partial Derivatives For a function of several variables, to find its partial derivative of a certain variable we can consider all the other variables as constants and apply the differentiation formula for one variable.\nRepresentation For function of one variable, its derivative can be expressed as:$\\frac{dy}{dx}$ For function of several variables, its derivative of a certain variable can be expressed as: $\\frac{\\partial f}{\\partial x}$ or $f_{x}$\nFor example, a function $f(x,y) = 4x^3y^2+5x-7y$\n">
+<meta property='og:url' content='http://localhost:1313/posts/stablefluidsnotes/'>
+<meta property='og:site_name' content='My Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Math' /><meta property='article:tag' content='Calculus' /><meta property='article:tag' content='Vectors' /><meta property='article:published_time' content='2026-07-18T20:45:52&#43;08:00'/><meta property='article:modified_time' content='2026-07-18T20:45:52&#43;08:00'/><meta property='og:image' content='http://localhost:1313/' />
+<meta name="twitter:title" content="Stable Fluids Notes">
+<meta name="twitter:description" content="Prerequisite knowledge Partial Derivatives For a function of several variables, to find its partial derivative of a certain variable we can consider all the other variables as constants and apply the differentiation formula for one variable.\nRepresentation For function of one variable, its derivative can be expressed as:$\\frac{dy}{dx}$ For function of several variables, its derivative of a certain variable can be expressed as: $\\frac{\\partial f}{\\partial x}$ or $f_{x}$\nFor example, a function $f(x,y) = 4x^3y^2+5x-7y$\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/' />
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.png" 
+                        width="240"
+                        height="240"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Blog</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/EMEEEEMMMM?tab=repositories'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#partial-derivatives">Partial Derivatives</a>
+      <ol>
+        <li><a href="#representation">Representation</a></li>
+      </ol>
+    </li>
+    <li><a href="#gradient">Gradient</a>
+      <ol>
+        <li><a href="#representation-1">Representation</a></li>
+        <li><a href="#physical-meaning">Physical meaning</a>
+          <ol>
+            <li><a href="#proof">Proof:</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#divergence">Divergence</a>
+      <ol>
+        <li><a href="#physical-meaning-1">Physical meaning:</a></li>
+      </ol>
+    </li>
+    <li><a href="#laplacian">Laplacian</a>
+      <ol>
+        <li><a href="#physical-meaning-2">Physical meaning</a></li>
+      </ol>
+    </li>
+    <li><a href="#material-derivative">Material derivative</a></li>
+    <li><a href="#forward-euler">Forward Euler</a>
+      <ol>
+        <li><a href="#why-would-forward-euler-method-numerical-blow-up">Why would forward Euler method numerical blow up?</a></li>
+      </ol>
+    </li>
+    <li><a href="#backward-euler">Backward Euler</a></li>
+    <li><a href="#central-difference">Central Difference</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#periodic-boundary-conditions">Periodic boundary conditions</a></li>
+    <li><a href="#fixed-boundary-conditions">Fixed boundary conditions</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/posts/stablefluidsnotes/">
+            <img alt="Featured image of post Stable Fluids Notes" height="1017" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/posts/stablefluidsnotes/cover.png" srcset="/posts/stablefluidsnotes/cover_hu_6d088cd997bb2506.png 800w, /posts/stablefluidsnotes/cover_hu_6f8f6973b019f626.png 1600w, /posts/stablefluidsnotes/cover.png 1920w" width="1920">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/notes/" style="background-color: hsl(298, 60%, 84%); color: hsl(298, 60%, 15%);">
+                Notes
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/stablefluidsnotes/">Stable Fluids Notes</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-07-18T20:45:52&#43;08:00'>Saturday, July 18, 2026</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        10 minutes read
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>Table of contents</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#partial-derivatives">Partial Derivatives</a>
+      <ol>
+        <li><a href="#representation">Representation</a></li>
+      </ol>
+    </li>
+    <li><a href="#gradient">Gradient</a>
+      <ol>
+        <li><a href="#representation-1">Representation</a></li>
+        <li><a href="#physical-meaning">Physical meaning</a>
+          <ol>
+            <li><a href="#proof">Proof:</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#divergence">Divergence</a>
+      <ol>
+        <li><a href="#physical-meaning-1">Physical meaning:</a></li>
+      </ol>
+    </li>
+    <li><a href="#laplacian">Laplacian</a>
+      <ol>
+        <li><a href="#physical-meaning-2">Physical meaning</a></li>
+      </ol>
+    </li>
+    <li><a href="#material-derivative">Material derivative</a></li>
+    <li><a href="#forward-euler">Forward Euler</a>
+      <ol>
+        <li><a href="#why-would-forward-euler-method-numerical-blow-up">Why would forward Euler method numerical blow up?</a></li>
+      </ol>
+    </li>
+    <li><a href="#backward-euler">Backward Euler</a></li>
+    <li><a href="#central-difference">Central Difference</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#periodic-boundary-conditions">Periodic boundary conditions</a></li>
+    <li><a href="#fixed-boundary-conditions">Fixed boundary conditions</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h1 id="prerequisite-knowledge">Prerequisite knowledge
+</h1><h2 id="partial-derivatives">Partial Derivatives
+</h2><p>For a function of several variables, to find its partial derivative of a certain variable we can consider all the other variables as constants and apply the differentiation formula for one variable.</p>
+<h3 id="representation">Representation
+</h3><p>For function of one variable, its derivative can be expressed as:$\frac{dy}{dx}$
+For function of several variables, its derivative of a certain variable can be expressed as: $\frac{\partial f}{\partial x}$ or $f_{x}$</p>
+<p>For example, a function $f(x,y) = 4x^3y^2+5x-7y$</p>
+<p>$$
+\begin{align}</p>
+<p>f(x,y) &amp;= 4x^3y^2 + 5x - 7y \
+\frac{\partial f}{\partial x} &amp;= 12x^2y^2 + 5 \
+\frac{\partial f}{\partial y} &amp;= 8x^3y -7
+\end{align}
+$$</p>
+<h2 id="gradient">Gradient
+</h2><p>Imagine the graph of the function of several variables as a mountain, the partial derivatives can tell us the slope of the mountain in one single direction. As for gradient of function of several variables, it is a vector of all the partial derivatives of the function.</p>
+<h3 id="representation-1">Representation
+</h3><p>We use a symbol $\nabla$ called &ldquo;Nabla&rdquo; to represent the gradient operator. For a two dimensional function $f(x,y)$, its gradient can be expressed as:
+</p>
+$$
+\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)
+$$<h3 id="physical-meaning">Physical meaning
+</h3><ol>
+<li>The steepest direction: Still, imagine $f(x,y)$ as the height of a mountain, then $\nabla f$ at a certain point points to the direction where the slope is steepest and the height rises the fastest.</li>
+<li>The size of the change rate: The $\lvert\nabla f\rvert$ represents how steep the slope is.</li>
+</ol>
+<h4 id="proof">Proof:
+</h4><p>Let&rsquo;s say that we are on somewhere on the function $f(x,y)$, we want to move a distance of $ds$ along the direction of an unit vector $\vec{v} = \left(\cos \theta, \sin \theta \right)$.
+For function $f(x,y)$, its total derivative is:
+</p>
+$$
+df = \frac{\partial f}{\partial x}dx + \frac{\partial f}{\partial y}dy
+$$<p>
+Because we moved along the direction of $\vec{v}$, so:
+</p>
+$$
+dx = ds \cos \theta, dy = ds \sin \theta
+$$<p>
+Substitute these back in to the total derivative we will get:
+</p>
+$$
+\begin{align}
+df &= \frac{\partial f}{\partial x} (ds \cos \theta) + \frac{\partial f}{\partial y} (ds \sin \theta) \\
+\frac{df}{ds} &= \frac{\partial f}{\partial x} \cos \theta + \frac{\partial f}{\partial y} \sin \theta \\
+\frac{df}{ds} &= \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right) \cdot \left(\cos \theta, \sin \theta \right) \\
+\frac{df}{ds} &= \nabla f \cdot \vec{v} \\
+\end{align}
+$$<p>
+Because vector $\vec{v}$ is an unit vector, its magnitude is $1$, so:
+</p>
+$$
+\frac{df}{ds} = \lvert \nabla f \rvert \cos \phi
+$$<p>From this expression, it is easy to observe the two physical meaning above. The direction of $\nabla f$ is the direction of the function where the function value increases the fastest and $\left(\frac{df}{ds}\right)_{max}=\lvert \nabla f \rvert$.</p>
+<h2 id="divergence">Divergence
+</h2><p>Gradient can turn a scalar field into a vector field while divergence is its opposite, turning a vector field into a scalar field.
+For a two dimensional vector field $\mathbf{u} = \left(u, v\right)$, its divergence is defined as:
+</p>
+$$
+\nabla \cdot \mathbf{u} = \frac{\partial u}{\partial x}+ \frac{\partial v}{\partial y}
+$$<h3 id="physical-meaning-1">Physical meaning:
+</h3><ol>
+<li>If $\nabla \cdot \mathbf{u} &gt; 0$, the fluid is expanding, increasing volume, decreasing density.</li>
+<li>If $\nabla \cdot \mathbf{u} &lt; 0$, the fluid is being compressed, decreasing volume, increasing density.</li>
+<li>If $\nabla \cdot \mathbf{u} = 0$, the fluid is an imcompressible fluids.</li>
+</ol>
+<h2 id="laplacian">Laplacian
+</h2><p>We know that:</p>
+<ul>
+<li>$\nabla f$ turns a scalar field into a vector field</li>
+<li>$\nabla \cdot \mathbf{u}$ turns a vector field into a scalar field
+Laplacian is to take the gradient of a scalar field to obtain a vector field, then take the divergence of this vector field, resulting in a new scalar field.
+
+$$
+\begin{align}
+\nabla^2 f &= \nabla \cdot (\nabla f) \\
+&= \nabla \cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right) \\
+&= \frac{\partial}{\partial x}\left(\frac{\partial f}{\partial x}\right) + \frac{\partial}{\partial y} \left(\frac{\partial f}{\partial y}\right) \\
+&= \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}
+\end{align}
+$$</li>
+</ul>
+<h3 id="physical-meaning-2">Physical meaning
+</h3><ol>
+<li>If $\nabla^2 f(x,y) &lt; 0$, this means that point $(x,y)$ is a &ldquo;local bulge&rdquo;.</li>
+<li>If $\nabla^2 f(x,y) &gt; 0$, this means that point $(x,y)$ is a &ldquo;local depression&rdquo;.</li>
+</ol>
+<h2 id="material-derivative">Material derivative
+</h2><p>It describe the rate of change of a physical quantity as observed by an observer moving with the flow of a fluid or material.
+</p>
+$$
+\frac{D \mathbf{u}}{Dt} = \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u}
+$$<p>
+Let&rsquo;s say that we are travelling from Shanghai(10℃) to? Beijing(0℃). What&rsquo;s the rate of change of the temperature?
+In three dimensional space, temperature $T$ is a function of several variables, it depends on where you are and the time:
+</p>
+$$
+T = T(x,y,z,t)
+$$<p>
+We are travelling through the space, the location of where we are are functions of time. Over time $t$, our position changes:
+</p>
+$$
+x = x(t), y = y(t), z = z(t)
+$$<p>
+So, temperature $T$ is actually a composite function which can be expressed as:
+</p>
+$$
+T = (x(t), y(t), z(t), t)
+$$<p>
+We want to know the rate of change of the temperature
+</p>
+$$
+\begin{align}
+\frac{dT}{dt} &= \frac{\partial T}{\partial x} \frac{dx}{dt} + \frac{\partial T}{\partial y} \frac{dy}{dt} + \frac{\partial T}{\partial z} \frac{dz}{dt} + \frac{\partial T}{\partial t} \frac{dt}{dt} \\
+\frac{dT}{dt} &= \left(\frac{\partial T}{\partial x} \frac{dx}{dt} + \frac{\partial T}{\partial y} \frac{dy}{dt} + \frac{\partial T}{\partial z} \frac{dz}{dt}\right) + \frac{\partial T}{\partial t} \\
+\frac{dT}{dt} &= \frac{\partial T}{\partial t} + \left(\frac{\partial T}{\partial x}v_x + \frac{\partial T}{\partial y} v_y + \frac{\partial T}{\partial z} v_z \right) \\
+\frac{dT}{dt} &= \frac{\partial T}{\partial t} + \left(v_x, v_y, v_z \right) \cdot \left(\frac{\partial T}{\partial x}, \frac{\partial T}{\partial y}, \frac{\partial T}{\partial z}\right) \\
+\frac{dT}{dt} &= \frac{\partial T}{\partial t} + \mathbf{v} \cdot \nabla T
+\end{align}
+$$<h2 id="forward-euler">Forward Euler
+</h2><p>The core iterative formula of the explicit Euler method:
+</p>
+$$
+f^{n+1} = f^n + \Delta t \cdot g(f^{n})
+$$<h3 id="why-would-forward-euler-method-numerical-blow-up">Why would forward Euler method numerical blow up?
+</h3><p>Let&rsquo;s say that a differential equation of certain variable in a physics system:
+</p>
+$$
+\frac{df}{dt} = - af (a>0)
+$$<p>
+$f$ here can be a sort of damping, as the time goes it should converge to zero.
+We discretize the expression and write it in the form of forward Euler method:
+</p>
+$$
+\begin{align}
+\frac{df}{dt} &= - af (a>0) \\
+\frac{f^{n+1} - f^{n}}{\Delta t} &= -a f^{n} \\
+f^{n+1} &= f^n - a \Delta t f^n \\
+f^{n+1} &= (1 - a \Delta t) f^n \\
+\end{align}
+$$<p>
+It is a recursive sequence and we can easily write the expression of its initial term and its nth term:
+</p>
+$$
+f^n = (1-a\Delta t)^n f^0
+$$<p>
+$f$ will converge to zero, so we can obtain an inequation:
+</p>
+$$
+\begin{align}
+\lvert 1 - a \Delta t \rvert < 1 \\
+-1 < 1 - a \Delta t < 1 \\
+0 < \Delta t < \frac{2}{a} \\
+\end{align}
+$$<p>
+So, when $\Delta t$ increases and $\Delta t &gt; \frac{2}{a}$, numerical blow up appears.</p>
+<h2 id="backward-euler">Backward Euler
+</h2><p>Backward Euler is the method used in the paper and it is one of the reason that no matter how long the $\Delta t$ is numerical blow up won&rsquo;t happen.
+Still, the equation:
+</p>
+$$
+\frac{df}{dt} = -a f (a > 0)
+$$<p>
+Backward Euler uses the future $n+1$ to calculate the rate of change:
+</p>
+$$
+\frac{f^{n+1} - f^n}{\Delta t} = -a f^{n+1}
+$$<p>
+Transpose and simplify the equation:
+</p>
+$$
+\begin{align}
+f^{n+1} + a\Delta t \cdot f^{n+1} &= f^{n} \\
+(1+a\Delta t) f^{n+1} &= f^n \\
+f^{n+1} &= \frac{1}{1+a\Delta t} f^{n}
+\end{align}
+$$<p>
+Same, we can obtain the equation of its initial term and nth term
+</p>
+$$
+f^n = (\frac{1}{1+a\Delta t})^n f^0
+$$<p>
+Since $a&gt;0, \Delta t&gt;0$
+</p>
+$$
+0 < \frac{1}{1+a\Delta t} < 1
+$$<p>
+So, no numerical blow up in this case.
+But the cost of backward Euler is that in order to get $f^{n+1}$, the computer need to handle a massive linear equation by using algorithms like Jacobi iteration.Computer need to iterate many times to get close to the solution for $f^{n+1}$.</p>
+<h2 id="central-difference">Central Difference
+</h2><p>In simulations, we split the space into grids, formulas in the paper involves calculations about gradient and divergence which uses partial derivatives.
+</p>
+$$
+\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)
+$$<p>
+Lets say that we have a one dimensional grid:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">		 i-1           i             i+1      
+</span></span><span class="line"><span class="cl">----------+------------+--------------+---------------
+</span></span><span class="line"><span class="cl">      f(x-△x)        f(x)            f(x+△x)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>There are three ways to calculate these partial derivatives:</p>
+<ol>
+<li>Forward Difference:
+
+$$
+	\frac{\partial f}{\partial x} \approx \frac{f_{i+1} - f_{i}}{\Delta x}
+	$$</li>
+<li>Backward Difference:
+
+$$
+	\frac{\partial f}{\partial x} \approx \frac{f_{i} - f_{i-1}}{\Delta x}
+	$$</li>
+<li>Central Difference:
+
+$$
+	\frac{\partial f}{\partial x} \approx \frac{f_{i+1} - f_{i-1}}{2 \Delta x}
+	$$
+Central difference are much more accurate than the other two method.
+Proof:
+We know that for function $f(x+\Delta x)$ its Taylor Expansion is:
+
+$$
+f(x+\Delta x) = f(x) + \Delta x \cdot f\prime(x) + \frac{\Delta x^2}{2!} \cdot f\prime\prime(x) + \frac{\Delta x^3}{3!} \cdot f\prime\prime\prime(x) + \cdots 
+$$
+For the two neighbors $f_{i+1}, f_{i-1}$, by using Taylor Expansion we can obtain:
+
+$$
+\begin{align}
+f_{i+1} &= f_{i} + \Delta x f\prime_{i} + \frac{\Delta x^2}{2} \cdot f\prime\prime_i + \frac{\Delta x^3}{6} \cdot f\prime\prime\prime_i + O(\Delta x^4) \\
+f_{i-1} &= f_{i} - \Delta x f\prime_{i} + \frac{\Delta x^2}{2} \cdot f\prime\prime_i - \frac{\Delta x^3}{6} \cdot f\prime\prime\prime_i + O(\Delta x^4) 
+\end{align}
+$$
+We use $f_{i+1} - f_{i-1}$ to obtain the central difference formula:
+
+$$
+\begin{align}
+f_{i+1} - f_{i-1} &= 2 \Delta x f\prime_i + \frac{\Delta x^3}{3} \cdot f\prime\prime\prime_i + O(\Delta x^4) \\
+f\prime_i &= \frac{f_{i+1} - f_{i-1}}{2\Delta x} - \frac{\Delta x^2}{6} \cdot f\prime\prime\prime_i + O(\Delta x^4) \\
+Error &\approx C \cdot \Delta x^2
+\end{align}
+$$
+While forward difference and backward difference will result in $Error \approx C \cdot \Delta x$ .</li>
+</ol>
+<h1 id="paper">Paper
+</h1><p>As written in the paper, <code> Our method cannot be found in the com- putational fluids literatur</code>, they used both Lagrangian and implicit methods to solve the Navier-Stokes equations demonstrated great nice swirling flows despite the numerical dissipation.
+Navier-Stokes equation:
+</p>
+$$
+\begin{align}
+\nabla \cdot \mathbf{u} &= 0 \\
+\frac{\partial \mathbf{u}}{\partial t} &= -(\mathbf{u} \cdot \nabla) \mathbf{u} - \frac{1}{\rho} \nabla p + \nu \nabla^2 \mathbf{u} + \mathbf{f}
+\end{align}
+$$<p>
+where $\nu$ is the kinematic viscosity of the fluid, $\rho$ is its density and $\mathbf{f}$ is an external force.
+According to Helmholtz-Hodge Decomposition, any vector field $\mathbf{w}$ can uniquely be decomposed into the form:
+</p>
+$$
+\mathbf{w} = \mathbf{u} + \nabla q
+$$<p>
+where $\mathbf{u}$ has zero divergence, $\nabla \cdot \mathbf{u} = 0$ and $q$ is a scalar field.
+To get our fundamental equation for our solver, which should not contain $p$, we need to do something based on the Navier-Stokes equation above.
+</p>
+$$
+\begin{align}
+\nabla \cdot \mathbf{w} &= \nabla \cdot (\mathbf{u} + \nabla q) \\
+\nabla \cdot \mathbf{w} &= \nabla \cdot \mathbf{u} + \nabla \cdot \nabla q
+\end{align}
+$$<p>
+Because of that $\nabla \cdot \mathbf{u} = 0$, we can obtain
+</p>
+$$
+\nabla \cdot \mathbf{w} = \nabla^2 q
+$$<p>
+In the paper, they defined an projection operator $\mathbf{P}$ which projects any vector field $\mathbf{w}$ onto its divergence free part
+</p>
+$$
+\mathbf{u} = \mathbf{P} \mathbf{w} = \mathbf{w} - \nabla q
+$$<p>
+To obtain a single equation for the velocity, we apply the projection operator on both sides of the Navier-Stokes equation:
+</p>
+$$
+\mathbf{P} \left(\frac{\partial \mathbf{u}}{\partial t}\right) = \mathbf{P} \left(-(\mathbf{u} \cdot \nabla) \mathbf{u} - \frac{1}{\rho}\nabla p + \nu \nabla^2 \mathbf{u} + f \right)
+$$<p>
+Since $\mathbf{u}$ has zero divergence, we can get
+</p>
+$$
+\begin{align}
+\mathbf{P} \mathbf{u} = \mathbf{u}, \mathbf{P} \nabla p = 0
+\end{align}
+$$<p>
+So,  the equation becomes:
+</p>
+$$
+\frac{\partial \mathbf{u}}{\partial t} = \mathbf{P} \left(-(\mathbf{u} \cdot \nabla) \mathbf{u} + \nu \nabla^2 \mathbf{u} + f \right)
+$$<h2 id="periodic-boundary-conditions">Periodic boundary conditions
+</h2><p>In every single time step $\Delta t$, four steps are taken:</p>
+<ol>
+<li>Add force</li>
+<li>Advect</li>
+<li>Diffuse</li>
+<li>Project</li>
+</ol>
+<pre class="mermaid" style="visibility:hidden">flowchart TD
+A["Add force"]
+B["Advect"]
+C["Diffuse"]
+D["$$(\mathbf{I} - \nu \Delta t \nabla^2) \mathbf{w}_3(x) = \mathbf{w}_2(x)$$"]
+E["Project"]
+A -- $$\mathbf{w}_1(x) = \mathbf{w}_0 (x) + \Delta t \mathbf{f}(x,t)$$ --> B
+B -- $$\mathbf{w}_2(x) = \mathbf{w}_1 (\mathbf{p}(x, -\Delta t))$$ --> C
+C -- solve $$\frac{\partial \mathbf{w}_2}{\partial t} = \nu \nabla^2 \mathbf{w}_2$$ --> D
+D --> E</pre><p>In this case, the simulation is under periodic boundary conditions. In the paper, they introduced an extremely elegant way to solve the massive equations with FFT.</p>
+<h2 id="fixed-boundary-conditions">Fixed boundary conditions
+</h2><p>It is basically the same as under the periodic boundary conditions, but different in the way of dealing the equations when entering the stage &ldquo;Diffuse&rdquo; and &ldquo;Project&rdquo; which both needs to solve a huge equation. The specialty of the periodic boundary condition makes the solution for these equations are very easy to find by using FFT. But under fixed boundary conditions, solving these equation will be a problem since FFT can&rsquo;t be used here. In the paper, they used FISHPAK to solve these equations.</p>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/math/">Math</a>
+        
+            <a href="/tags/calculus/">Calculus</a>
+        
+            <a href="/tags/vectors/">Vectors</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title">Related content</h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/posts/quaternion/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post Quaternions" height="150" loading="lazy" src="/posts/quaternion/cover_hu_98243ac4b9b57043.png" srcset="/posts/quaternion/cover_hu_98243ac4b9b57043.png 1x, /posts/quaternion/cover_hu_f7f3c15f2767d081.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #0e0e0f80 0%, #ffffffC0 100%);">
+            <h2 class="article-title">Quaternions</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/posts/mathnotes/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post Math Notes" height="150" loading="lazy" src="/posts/mathnotes/cover_hu_c053410266b8dfde.png" srcset="/posts/mathnotes/cover_hu_c053410266b8dfde.png 1x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #fefefe80 0%, #fefefeC0 100%);">
+            <h2 class="article-title">Math Notes</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/posts/structureoftheengine/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post Structure Of The Engine" height="150" loading="lazy" src="/posts/structureoftheengine/cover_hu_8d0cead9b8573cc.png" srcset="/posts/structureoftheengine/cover_hu_8d0cead9b8573cc.png 1x, /posts/structureoftheengine/cover_hu_b3c4fa9fe7383ef0.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #52e4c780 0%, #4b4c4dC0 100%);">
+            <h2 class="article-title">Structure Of The Engine</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/posts/gjkandepa/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post Narrow Phase: GJK and EPA" height="150" loading="lazy" src="/posts/gjkandepa/IMG_20260213_154637_hu_fb251f319d566767.jpg" srcset="/posts/gjkandepa/IMG_20260213_154637_hu_fb251f319d566767.jpg 1x, /posts/gjkandepa/IMG_20260213_154637_hu_7c98f70ffb5a9b8e.jpg 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #28252080 0%, #afa8a1C0 100%);">
+            <h2 class="article-title">Narrow Phase: GJK and EPA</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/posts/foundationsofvectorsandmatrices/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post Foundations of Vectors And Matrices" height="150" loading="lazy" src="/posts/foundationsofvectorsandmatrices/VectorSum_hu_1ddbf2ceae1152e2.jpg" srcset="/posts/foundationsofvectorsandmatrices/VectorSum_hu_1ddbf2ceae1152e2.jpg 1x, /posts/foundationsofvectorsandmatrices/VectorSum_hu_35490c3cf959b5e7.jpg 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #08f9b580 0%, #000000C0 100%);">
+            <h2 class="article-title">Foundations of Vectors And Matrices</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+        <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    <div class="mermaid-modal" id="mermaid-modal">
+    <div class="mermaid-modal-header">
+        <div class="mermaid-modal-controls">
+            <button data-zoom="-1">− Zoom Out</button>
+            <button data-zoom="0">Reset (100%)</button>
+            <button data-zoom="1">+ Zoom In</button>
+            <button data-zoom="fit">Fit to Screen</button>
+        </div>
+        <button class="mermaid-modal-close" id="mermaid-modal-close">✕ Close (Esc)</button>
+    </div>
+    <div class="mermaid-modal-body" id="mermaid-modal-body">
+        <div class="mermaid-modal-content" id="mermaid-modal-content"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script><script type="module">
+import { initMermaidPage } from '\/ts\/mermaid.js';
+initMermaidPage({"darkTheme":"dark","darkThemeVariables":{},"htmlLabels":true,"lightTheme":"default","lightThemeVariables":{},"look":"classic","securityLevel":"strict","transparentBackground":false});
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.818fb93f0b1f0a8fdd1cd9cfaea240c05d307017d1d62e7d2526785028b1ff9b.js" defer></script>
+
+
+    </body>
+</html>
