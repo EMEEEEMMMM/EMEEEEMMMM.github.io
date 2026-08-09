@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="IISPH — Reproduction Notes (Paper) Paper: Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner. Implicit Incompressible SPH. IEEE Transactions on Visualization and Computer Graphics, July 2013. DOI: 10.1109/TVCG.2013.105\nPrerequisite Knowledge Dirac delta function The Dirac delta $\\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its sifting property: for any continuous function $f$,\n$$ \\int_{-\\infty}^{+\\infty} f(x)\\, \\delta(x - a)\\, dx = f(a). $$ Intuitively: $\\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.\n">
+<title>Implicit Incompressible SPH 1</title>
+
+
+<link rel="canonical" href="http://localhost:1313/posts/implicitincompressiblesph/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.0ac18e2dad4589041e5f2a36c819921dfed2760b47389a3f3fb2933ff85e4040.css"><meta property='og:title' content="Implicit Incompressible SPH 1">
+<meta property='og:description' content="IISPH — Reproduction Notes (Paper) Paper: Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner. Implicit Incompressible SPH. IEEE Transactions on Visualization and Computer Graphics, July 2013. DOI: 10.1109/TVCG.2013.105\nPrerequisite Knowledge Dirac delta function The Dirac delta $\\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its sifting property: for any continuous function $f$,\n$$ \\int_{-\\infty}^{+\\infty} f(x)\\, \\delta(x - a)\\, dx = f(a). $$ Intuitively: $\\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.\n">
+<meta property='og:url' content='http://localhost:1313/posts/implicitincompressiblesph/'>
+<meta property='og:site_name' content='My Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2026-08-08T21:06:42&#43;08:00'/><meta property='article:modified_time' content='2026-08-08T21:06:42&#43;08:00'/><meta property='og:image' content='http://localhost:1313/' />
+<meta name="twitter:title" content="Implicit Incompressible SPH 1">
+<meta name="twitter:description" content="IISPH — Reproduction Notes (Paper) Paper: Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner. Implicit Incompressible SPH. IEEE Transactions on Visualization and Computer Graphics, July 2013. DOI: 10.1109/TVCG.2013.105\nPrerequisite Knowledge Dirac delta function The Dirac delta $\\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its sifting property: for any continuous function $f$,\n$$ \\int_{-\\infty}^{+\\infty} f(x)\\, \\delta(x - a)\\, dx = f(a). $$ Intuitively: $\\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/' />
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.png" 
+                        width="240"
+                        height="240"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My Blog</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/EMEEEEMMMM?tab=repositories'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#dirac-delta-function">Dirac delta function</a></li>
+    <li><a href="#point-particle-density-and-the-idea-of-sph">Point-particle density and the idea of SPH</a></li>
+    <li><a href="#requirements-on-the-kernel-w">Requirements on the kernel $W$</a></li>
+    <li><a href="#the-general-sph-interpolation-formula">The general SPH interpolation formula</a></li>
+    <li><a href="#vector-calculus-basics-from-the-stable-fluids-notes-restated">Vector calculus basics (from the Stable Fluids notes, restated)</a></li>
+    <li><a href="#material-derivative">Material derivative</a></li>
+    <li><a href="#euler-time-integration">Euler time integration</a></li>
+    <li><a href="#artificial-viscosity-monaghan-19922005-cited-as-23-in-the-paper">Artificial viscosity (Monaghan 1992/2005, cited as [23] in the paper)</a>
+      <ol>
+        <li><a href="#the-idea">The idea</a></li>
+        <li><a href="#the-force">The force</a></li>
+      </ol>
+    </li>
+    <li><a href="#linear-systems-and-relaxed-jacobi-iteration">Linear systems and (relaxed) Jacobi iteration</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#the-problem-enforcing-incompressibility-in-sph">The problem: enforcing incompressibility in SPH</a></li>
+    <li><a href="#standard-sph-ingredients-used-by-the-paper">Standard SPH ingredients used by the paper</a>
+      <ol>
+        <li><a href="#density-already-derived-in-prerequisite-2">Density (already derived in Prerequisite §2)</a></li>
+        <li><a href="#equation-of-state-eos--the-old-way-to-get-pressure">Equation of state (EOS) — the &ldquo;old&rdquo; way to get pressure</a></li>
+        <li><a href="#the-symmetric-pressure-force-eqn-2--full-derivation">The symmetric pressure force (Eqn. 2) — full derivation</a></li>
+      </ol>
+    </li>
+    <li><a href="#the-iisph-derivation-paper-sec-21">The IISPH derivation (paper Sec. 2.1)</a>
+      <ol>
+        <li><a href="#the-continuity-equation">The continuity equation</a></li>
+        <li><a href="#sph-discretization-of-the-divergence">SPH discretization of the divergence</a></li>
+        <li><a href="#discretize-the-continuity-equation-paper-eqn-3">Discretize the continuity equation (paper Eqn. 3)</a></li>
+        <li><a href="#semi-implicit-euler-split-of-the-velocity">Semi-implicit Euler split of the velocity</a></li>
+        <li><a href="#the-pressure-equation-paper-eqn-5">The pressure equation (paper Eqn. 5)</a></li>
+        <li><a href="#the-linear-system-paper-eqn-6">The linear system (paper Eqn. 6)</a></li>
+      </ol>
+    </li>
+    <li><a href="#solving-the-system-relaxed-jacobi-paper-sec-31">Solving the system: relaxed Jacobi (paper Sec. 3.1)</a>
+      <ol>
+        <li><a href="#extracting-the-coefficients-the-displacement-of-9">Extracting the coefficients: the displacement of (9)</a></li>
+        <li><a href="#assembling-a_ii-paper-eqns-1012">Assembling $a_{ii}$ (paper Eqns. 10–12)</a></li>
+        <li><a href="#the-relaxed-jacobi-update-paper-eqns-8-and-13">The relaxed Jacobi update (paper Eqns. 8 and 13)</a></li>
+        <li><a href="#efficient-implementation-paper-sec-311">Efficient implementation (paper Sec. 3.1.1)</a></li>
+        <li><a href="#why-not-conjugate-gradient-paper-sec-32">Why not Conjugate Gradient (paper Sec. 3.2)</a></li>
+      </ol>
+    </li>
+    <li><a href="#boundary-handling-paper-sec-4">Boundary handling (paper Sec. 4)</a>
+      <ol>
+        <li><a href="#the-problem-and-the-chosen-scheme">The problem and the chosen scheme</a></li>
+        <li><a href="#normalizing-the-boundary-contribution-psib">Normalizing the boundary contribution: $\Psi^b$</a></li>
+        <li><a href="#density-estimation-with-boundaries-paper-eqn-14">Density estimation with boundaries (paper Eqn. 14)</a></li>
+        <li><a href="#boundary-pressure-force-paper-eqn-15">Boundary pressure force (paper Eqn. 15)</a></li>
+        <li><a href="#modifying-d_ii-and-the-jacobi-update">Modifying $d_{ii}$ and the Jacobi update</a></li>
+      </ol>
+    </li>
+    <li><a href="#where-the-viscosity-enters-the-pipeline-paper-sec-5-23">Where the viscosity enters the pipeline (paper Sec. 5, [23])</a></li>
+    <li><a href="#algorithm-1--the-complete-time-step-paper-assembled">Algorithm 1 — the complete time step (paper, assembled)</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#a-surface-tension-paper-5-becker--teschner-2007">A. Surface tension (paper [5]: Becker &amp; Teschner 2007)</a></li>
+    <li><a href="#b-surface-reconstruction-paper-32-akinci-et-al-2012">B. Surface reconstruction (paper [32]: Akinci et al. 2012)</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/posts/implicitincompressiblesph/">
+            <img alt="Featured image of post Implicit Incompressible SPH 1" height="720" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/posts/implicitincompressiblesph/cover.png" srcset="/posts/implicitincompressiblesph/cover_hu_7091e0febb71c043.png 800w, /posts/implicitincompressiblesph/cover.png 1280w" width="1280">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/implicitincompressiblesph/">Implicit Incompressible SPH 1</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-08-08T21:06:42&#43;08:00'>Saturday, August 8, 2026</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        24 minutes read
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>Table of contents</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#dirac-delta-function">Dirac delta function</a></li>
+    <li><a href="#point-particle-density-and-the-idea-of-sph">Point-particle density and the idea of SPH</a></li>
+    <li><a href="#requirements-on-the-kernel-w">Requirements on the kernel $W$</a></li>
+    <li><a href="#the-general-sph-interpolation-formula">The general SPH interpolation formula</a></li>
+    <li><a href="#vector-calculus-basics-from-the-stable-fluids-notes-restated">Vector calculus basics (from the Stable Fluids notes, restated)</a></li>
+    <li><a href="#material-derivative">Material derivative</a></li>
+    <li><a href="#euler-time-integration">Euler time integration</a></li>
+    <li><a href="#artificial-viscosity-monaghan-19922005-cited-as-23-in-the-paper">Artificial viscosity (Monaghan 1992/2005, cited as [23] in the paper)</a>
+      <ol>
+        <li><a href="#the-idea">The idea</a></li>
+        <li><a href="#the-force">The force</a></li>
+      </ol>
+    </li>
+    <li><a href="#linear-systems-and-relaxed-jacobi-iteration">Linear systems and (relaxed) Jacobi iteration</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#the-problem-enforcing-incompressibility-in-sph">The problem: enforcing incompressibility in SPH</a></li>
+    <li><a href="#standard-sph-ingredients-used-by-the-paper">Standard SPH ingredients used by the paper</a>
+      <ol>
+        <li><a href="#density-already-derived-in-prerequisite-2">Density (already derived in Prerequisite §2)</a></li>
+        <li><a href="#equation-of-state-eos--the-old-way-to-get-pressure">Equation of state (EOS) — the &ldquo;old&rdquo; way to get pressure</a></li>
+        <li><a href="#the-symmetric-pressure-force-eqn-2--full-derivation">The symmetric pressure force (Eqn. 2) — full derivation</a></li>
+      </ol>
+    </li>
+    <li><a href="#the-iisph-derivation-paper-sec-21">The IISPH derivation (paper Sec. 2.1)</a>
+      <ol>
+        <li><a href="#the-continuity-equation">The continuity equation</a></li>
+        <li><a href="#sph-discretization-of-the-divergence">SPH discretization of the divergence</a></li>
+        <li><a href="#discretize-the-continuity-equation-paper-eqn-3">Discretize the continuity equation (paper Eqn. 3)</a></li>
+        <li><a href="#semi-implicit-euler-split-of-the-velocity">Semi-implicit Euler split of the velocity</a></li>
+        <li><a href="#the-pressure-equation-paper-eqn-5">The pressure equation (paper Eqn. 5)</a></li>
+        <li><a href="#the-linear-system-paper-eqn-6">The linear system (paper Eqn. 6)</a></li>
+      </ol>
+    </li>
+    <li><a href="#solving-the-system-relaxed-jacobi-paper-sec-31">Solving the system: relaxed Jacobi (paper Sec. 3.1)</a>
+      <ol>
+        <li><a href="#extracting-the-coefficients-the-displacement-of-9">Extracting the coefficients: the displacement of (9)</a></li>
+        <li><a href="#assembling-a_ii-paper-eqns-1012">Assembling $a_{ii}$ (paper Eqns. 10–12)</a></li>
+        <li><a href="#the-relaxed-jacobi-update-paper-eqns-8-and-13">The relaxed Jacobi update (paper Eqns. 8 and 13)</a></li>
+        <li><a href="#efficient-implementation-paper-sec-311">Efficient implementation (paper Sec. 3.1.1)</a></li>
+        <li><a href="#why-not-conjugate-gradient-paper-sec-32">Why not Conjugate Gradient (paper Sec. 3.2)</a></li>
+      </ol>
+    </li>
+    <li><a href="#boundary-handling-paper-sec-4">Boundary handling (paper Sec. 4)</a>
+      <ol>
+        <li><a href="#the-problem-and-the-chosen-scheme">The problem and the chosen scheme</a></li>
+        <li><a href="#normalizing-the-boundary-contribution-psib">Normalizing the boundary contribution: $\Psi^b$</a></li>
+        <li><a href="#density-estimation-with-boundaries-paper-eqn-14">Density estimation with boundaries (paper Eqn. 14)</a></li>
+        <li><a href="#boundary-pressure-force-paper-eqn-15">Boundary pressure force (paper Eqn. 15)</a></li>
+        <li><a href="#modifying-d_ii-and-the-jacobi-update">Modifying $d_{ii}$ and the Jacobi update</a></li>
+      </ol>
+    </li>
+    <li><a href="#where-the-viscosity-enters-the-pipeline-paper-sec-5-23">Where the viscosity enters the pipeline (paper Sec. 5, [23])</a></li>
+    <li><a href="#algorithm-1--the-complete-time-step-paper-assembled">Algorithm 1 — the complete time step (paper, assembled)</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#a-surface-tension-paper-5-becker--teschner-2007">A. Surface tension (paper [5]: Becker &amp; Teschner 2007)</a></li>
+    <li><a href="#b-surface-reconstruction-paper-32-akinci-et-al-2012">B. Surface reconstruction (paper [32]: Akinci et al. 2012)</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h1 id="iisph--reproduction-notes-paper">IISPH — Reproduction Notes (Paper)
+</h1>
+    <blockquote>
+        <p><strong>Paper:</strong> Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner.
+<em>Implicit Incompressible SPH.</em> IEEE Transactions on Visualization and Computer Graphics, July 2013.
+DOI: 10.1109/TVCG.2013.105</p>
+
+    </blockquote>
+<hr>
+<h1 id="prerequisite-knowledge">Prerequisite Knowledge
+</h1><h2 id="dirac-delta-function">Dirac delta function
+</h2><p>The Dirac delta $\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its <em>sifting property</em>: for any continuous function $f$,</p>
+$$
+\int_{-\infty}^{+\infty} f(x)\, \delta(x - a)\, dx = f(a).
+$$<p>
+Intuitively: $\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.</p>
+<h2 id="point-particle-density-and-the-idea-of-sph">Point-particle density and the idea of SPH
+</h2><p>A set of point particles with masses $m_j$ at positions $x_j$ has the exact density field</p>
+$$
+\rho(x) = \sum_j m_j\, \delta(x - x_j).
+$$<p>
+Check: integrate over all space,</p>
+$$
+\int \rho(x)\, dx = \sum_j m_j \int \delta(x-x_j)\, dx = \sum_j m_j,
+$$<p>
+which is exactly the total mass. Good.
+<strong>Problem:</strong> $\delta$ is useless numerically — the density is $0$ almost everywhere and infinite at the particles; we cannot differentiate or sample it.
+<strong>Idea of SPH (Smoothed Particle Hydrodynamics):</strong> replace $\delta$ by a smooth function $W_h$ that approximates it:</p>
+$$
+\delta(x) \;\approx\; W_h(x), \qquad W_h \to \delta \text{ as } h \to 0.
+$$<p>
+$W_h$ is called the <em>kernel function</em> (or <em>smoothing kernel</em>); $h$ is its support radius (also called <em>smoothing length</em>). Then the density at particle $i$ is approximated by sampling the smoothed field at $x_i$:</p>
+$$
+\rho_i = \sum_j m_j\, W_{ij}, \qquad W_{ij} := W(x_i - x_j). \tag{paper Sec.2}
+$$<p>
+<strong>Why this is a valid density:</strong> because $\int W = 1$ (normalization), the total mass is still $\sum_j m_j$, and $\rho_i$ is large where particles are crowded — exactly the behavior of a real density.</p>
+<h2 id="requirements-on-the-kernel-w">Requirements on the kernel $W$
+</h2><ol>
+<li><strong>Normalization:</strong> $\int W(x), dx = 1$ — total mass preserved.</li>
+<li><strong>Finite support:</strong> $W(x) = 0$ for $|x| &gt; h$ — each particle only interacts with neighbors inside radius $h$; cost stays $O(\text{neighbors})$.</li>
+<li><strong>Smoothness:</strong> $W$ differentiable (we need $\nabla W$ for pressure forces).</li>
+<li><strong>Radial symmetry / decay:</strong> $W$ depends on $|x|$ and decreases with distance.</li>
+<li><strong>$W&rsquo;(0) = 0$</strong> (i.e. $\nabla W = 0$ at the origin) — the cubic spline kernel used in the paper satisfies this; it makes the self-interaction term vanish automatically.</li>
+</ol>
+<h2 id="the-general-sph-interpolation-formula">The general SPH interpolation formula
+</h2><p>Any field $A(x)$ can be reconstructed from its values at the particles. Start from the exact reconstruction (sifting property again),</p>
+$$
+A(x) = \int A(x')\, \delta(x - x')\, dx'.
+$$<p>
+Replace $\delta$ by $W$, replace the integral by a sum over particles, and identify the volume element of particle $j$ with its physical volume $V_j = m_j / \rho_j$ (mass over density — mass conservation per particle):</p>
+$$
+A(x) \approx \sum_j A_j\, \frac{m_j}{\rho_j}\, W(x - x_j).
+$$<p>
+Sampled at particle $i$:</p>
+$$
+A_i \approx \sum_j m_j \frac{A_j}{\rho_j}\, W_{ij}. \tag{SPH interpolation}
+$$<p>
+If $A = \rho$, then $A_j/\rho_j = 1$ and we recover the density formula above — so the density formula is just the special case $A = \rho$ of the interpolation formula.
+<strong>Differentiating</strong> the interpolation formula: $A_j, \rho_j$ are constants attached to particle $j$; only $W$ depends on position. Hence</p>
+$$
+\nabla A(x_i) \approx \sum_j m_j \frac{A_j}{\rho_j}\, \nabla W_{ij}. \tag{SPH gradient}
+$$<h2 id="vector-calculus-basics-from-the-stable-fluids-notes-restated">Vector calculus basics (from the Stable Fluids notes, restated)
+</h2><ul>
+<li><strong>Gradient</strong> $\nabla f = (\partial f/\partial x, \partial f/\partial y, \partial f/\partial z)$:
+the steepest-ascent direction of a scalar field.</li>
+<li><strong>Divergence</strong> $\nabla\cdot u = \partial u/\partial x + \partial v/\partial y + \partial w/\partial z$:
+local rate of volume expansion of a vector field.</li>
+<li><strong>Laplacian</strong> $\nabla^2 f = \nabla\cdot(\nabla f)$: divergence of the gradient.</li>
+<li><strong>Product rule (vector form):</strong> $\nabla\cdot(f u) = f,\nabla\cdot u + u\cdot\nabla f$.</li>
+<li><strong>Scalar triple product:</strong> $a\cdot(b\times c) = b\cdot(c\times a) = c\cdot(a\times b)$.</li>
+</ul>
+<h2 id="material-derivative">Material derivative
+</h2>$$
+\frac{D}{Dt} = \frac{\partial}{\partial t} + v\cdot\nabla
+$$<p>
+is the rate of change seen by an observer moving with the fluid. SPH particles <em>are</em> fluid parcels, so the rate of change of a quantity attached to particle $i$ is a material derivative — which is why we may discretize time derivatives on particles with plain finite differences.</p>
+<h2 id="euler-time-integration">Euler time integration
+</h2><ul>
+<li><strong>Forward (explicit) Euler:</strong> $f^{n+1} = f^n + \Delta t, g(f^n)$ — simple but restricted by a stability condition on $\Delta t$.</li>
+<li><strong>Backward (implicit) Euler:</strong> $f^{n+1} = f^n + \Delta t, g(f^{n+1})$ — unconditionally stable for the model problem $\dot f = -a f$, but requires solving an equation.</li>
+<li><strong>Semi-implicit Euler:</strong> some terms use $t$ (explicit), others $t+\Delta t$ (implicit).
+IISPH uses this: velocities are implicit through the unknown pressure forces, while the kernel gradients are evaluated at the known time $t$.</li>
+</ul>
+<h2 id="artificial-viscosity-monaghan-19922005-cited-as-23-in-the-paper">Artificial viscosity (Monaghan 1992/2005, cited as [23] in the paper)
+</h2><p>Real fluids have viscosity: neighboring fluid elements resist relative motion. In SPH this shows up as a force proportional to the <em>velocity gradient</em>. The paper&rsquo;s framework uses the <strong>artificial viscosity</strong> of Monaghan (the classic SPH viscosity, present in both the 1992 and the 2005 survey; the paper cites the 2005 one as [23]).</p>
+<h3 id="the-idea">The idea
+</h3><p>Consider a pair of particles $i, j$ with relative velocity $\mathbf{v}_{ij} = \mathbf{v}_{i} - \mathbf{v}_{j}$ and relative position $\mathbf{r}_{ij} = \mathbf{x}_{i} - \mathbf{x}_{j}$.</p>
+<p>If $\mathbf{v}_{ij} \cdot \mathbf{r}_{ij} &lt; 0$ , the particles are <strong>approaching</strong> each other;</p>
+<p>If $\mathbf{v}_{ij} \cdot \mathbf{r}_{ij} &gt; 0 $ they are separating. Viscosity should damp the approaching motion (it resists compression of the flow) and leave separating motion alone.
+Monaghan&rsquo;s artificial viscosity adds, for approaching pairs, an extra &ldquo;pressure-like&rdquo; term:</p>
+$$
+\Pi_{ij} = -\alpha, \bar{c}_{ij}, \frac{\mu_{ij}}{\bar\rho_{ij}}, \qquad
+\mu_{ij} = \frac{h, \mathbf{v}_{ij}\cdot\mathbf{r}_{ij}}{|\mathbf{r}_{ij}|^2 + 0.01 h^2},
+\qquad (\text{if } \mathbf{v}_{ij}\cdot\mathbf{r}_{ij} < 0)
+$$<ul>
+<li>$\Pi_{ij} = 0$ when $\mathbf{v}_{ij}\cdot\mathbf{r}_{ij} \ge 0$ (separating pairs).</li>
+<li>$\alpha$: dimensionless strength (paper-scale values $\sim 0.01$–$0.1$; SPlisHSPlasH&rsquo;s implementation calls this model <em>Monaghan1992</em>).</li>
+<li>$\bar c_{ij}$: average artificial speed of sound — a <em>numerical</em> parameter that sets the compressibility scale of the flow.</li>
+<li>$\bar\rho_{ij} = (\rho_i + \rho_j)/2$: average density.</li>
+<li>The term $0.01 h^2$ in the denominator only prevents division by zero when two particles are on top of each other.
+Since $\mu_{ij} &lt; 0$ for approaching pairs, $\Pi_{ij} &gt; 0$: it acts like a small repulsive pressure that slows the approach — a cheap numerical viscosity.</li>
+</ul>
+<h3 id="the-force">The force
+</h3><p>The viscosity acceleration is the SPH-weighted sum of $\Pi$ over the kernel gradient (derivation: it is a momentum-preserving anti-symmetric pairwise force, exactly like the pressure force (2) with $p_i/\rho_i^2 \to \Pi_{ij}/2$-style symmetrization):</p>
+$$
+\mathbf{a}^{\text{visc}}_i = \sum_j m_j\, \Pi_{ij}\, \nabla_{\!i} W_{ij},
+\qquad \Pi_{ij} = \Pi_{ji} \ \text{(anti-symmetric force pair)}.
+$$<p>
+In our normalized form ($\rho_n = \rho/\rho_0$, $V = $ particle volume, so $m_j/\bar\rho_{ij} = V_j/\bar\rho_{n,ij}$):</p>
+$$
+\mathbf{a}^{\text{visc}}_i = -\sum_j V_j\, \frac{\alpha c\, \mu_{ij}}{\bar\rho_{n,ij}}\,
+\nabla_{\!i} W_{ij}
+$$<p>
+with the minus sign because $\mu_{ij} &lt; 0$ (the code evaluates $\Pi_{ij}$ and accumulates $\mathbf{a} -= V_j \Pi_{ij} \nabla W$). It is evaluated in the <strong>advection phase</strong> (a non-pressure force), i.e. it contributes to $\mathbf{v}^{\text{adv}}$.</p>
+<h2 id="linear-systems-and-relaxed-jacobi-iteration">Linear systems and (relaxed) Jacobi iteration
+</h2><p>A linear system $A p = b$ ($A$ an $n\times n$ matrix, $p, b$ vectors) can be solved by splitting $A = D + R$ where $D$ is the diagonal part of $A$. The equation for row $i$,</p>
+$$
+a_{ii}\, p_i = b_i - \sum_{j\neq i} a_{ij}\, p_j,
+$$<p>
+suggests the <strong>Jacobi iteration</strong> (all unknowns updated simultaneously using the previous iterate):</p>
+$$
+p^{l+1}_i = \frac{1}{a_{ii}}\left(b_i - \sum_{j\neq i} a_{ij} p^l_j\right), \qquad l = 0, 1, 2, \dots
+$$<p>
+<strong>Relaxed (weighted) Jacobi</strong> mixes the new value with the old one using a relaxation factor $\omega$:</p>
+$$
+p^{l+1}_i = (1-\omega)\, p^l_i + \omega\, \frac{1}{a_{ii}}\left(b_i - \sum_{j\neq i} a_{ij} p^l_j\right).
+$$<ul>
+<li>$\omega = 1$: plain Jacobi.</li>
+<li>$0 &lt; \omega &lt; 1$: damping — suppresses the oscillation that plain Jacobi suffers from on smooth error components. The paper uses $\omega = 0.5$.
+Jacobi requires no special structure of $A$ (no symmetry needed), which matters here because the IISPH system matrix is <em>not</em> symmetric (see Sec. 3.2 of the paper).</li>
+</ul>
+<hr>
+<h1 id="paper">Paper
+</h1><h2 id="the-problem-enforcing-incompressibility-in-sph">The problem: enforcing incompressibility in SPH
+</h2><p>Water is nearly incompressible: its density barely changes. In SPH, &ldquo;incompressible&rdquo; means &ldquo;keep $\rho_i \approx \rho_0$ for every particle $i$&rdquo; ($\rho_0$ = rest density). The paper&rsquo;s goal: an <em>implicit</em> projection method for SPH that (a) converges fast, (b) allows large time steps, (c) scales to millions of particles.
+<strong>Roadmap of the method</strong> (one time step):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. Predict:  add non-pressure forces (gravity etc.) -&gt; v^adv, rho^adv
+</span></span><span class="line"><span class="cl">2. Solve:    find pressures p such that applying pressure forces
+</span></span><span class="line"><span class="cl">            makes the predicted density rho^adv return to rho_0
+</span></span><span class="line"><span class="cl">3. Correct:  v &lt;- v^adv + dt * F^p/m
+</span></span><span class="line"><span class="cl">4. Integrate:x &lt;- x + dt * v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This is the classical <em>projection / splitting</em> idea: predict with the known parts, then project onto the constraint (here: density = rho_0) using the unknown pressure.</p>
+<h2 id="standard-sph-ingredients-used-by-the-paper">Standard SPH ingredients used by the paper
+</h2><h3 id="density-already-derived-in-prerequisite-2">Density (already derived in Prerequisite §2)
+</h3>$$
+\rho_i(t) = \sum_j m_j\, W_{ij}(t), \qquad W_{ij}(t) = W(x_i(t) - x_j(t)). \tag{paper Sec.2}
+$$<h3 id="equation-of-state-eos--the-old-way-to-get-pressure">Equation of state (EOS) — the &ldquo;old&rdquo; way to get pressure
+</h3>$$
+p_i(t) = \frac{\kappa \rho_0}{\gamma}\left[\left(\frac{\rho_i(t)}{\rho_0}\right)^\gamma - 1\right]. \tag{1}
+$$<ul>
+<li>$\rho_0$: rest density (e.g. 1000 kg/m³ for water).</li>
+<li>$\kappa$: stiffness (user parameter).</li>
+<li>$\gamma$: exponent, typically 7. With $\gamma = 7$, a small density increase produces an enormous pressure — water &ldquo;fights back&rdquo; against compression.
+This is an equation of state: it relates the thermodynamic state variables (here: density) to the pressure. Standard/weakly compressible SPH (SSPH/WCSPH) computes $p$ from (1) directly. <strong>IISPH does NOT use (1)</strong>; it solves a linear system so that $\rho_i(t+\Delta t) = \rho_0$ exactly (implicitly). (1) is included for context.</li>
+</ul>
+<h3 id="the-symmetric-pressure-force-eqn-2--full-derivation">The symmetric pressure force (Eqn. 2) — full derivation
+</h3>
+    <blockquote>
+        <p>We want the force on particle $i$ due to pressure. In the continuum, the pressure force
+per unit volume is $-\nabla p$ (pressure pushes from high to low). Particle $i$ occupies
+volume $V_i = m_i/\rho_i$, so:
+</p>
+$$F^p_i = V_i\,(-\nabla p)(x_i) = -\frac{m_i}{\rho_i}\,\nabla p(x_i). \tag{A}$$
+    </blockquote>
+<p><strong>Step 1 — naive discretization, and why it fails.</strong> Using the SPH gradient formula with $A = p$:</p>
+$$
+\nabla p(x_i) \approx \sum_j m_j \frac{p_j}{\rho_j}\, \nabla W_{ij},
+\qquad\text{so}\qquad
+F^p_i = -\frac{m_i}{\rho_i}\sum_j m_j \frac{p_j}{\rho_j}\, \nabla W_{ij}. \tag{B}
+$$<p>
+$F^P_i$ is the forces that particle $i$ receives from all the neighbor particles $j$.
+We can look at the force of particle $j$ to particle $i$ individually by take a certain term in the sum. The force that particle $j$ receives from $i$ is obtained by swapping $i\leftrightarrow j$ and using $\nabla W_{ji} = -\nabla W_{ij}$ (gradient is anti-symmetric in the pair):</p>
+$$
+F^p_{j\leftarrow i} = -\frac{m_j}{\rho_j} m_i \frac{p_i}{\rho_i}\, \nabla W_{ji}
+= + \frac{m_i m_j}{\rho_i\rho_j}\, p_i\, \nabla W_{ij},
+\qquad
+F^p_{i\leftarrow j} = -\frac{m_i m_j}{\rho_i\rho_j}\, p_j\, \nabla W_{ij}.
+$$<p>
+These are <strong>not</strong> equal and opposite ($p_i \neq p_j$ in general) — Newton&rsquo;s third law is violated, momentum is not conserved, and the fluid would drift. We need a symmetric discretization.
+<strong>Step 2 — a calculus identity.</strong> Start from the product rule for the gradient of a quotient $p/\rho$:</p>
+$$
+\nabla\left(\frac{p}{\rho}\right)
+= \frac{1}{\rho}\nabla p + p\,\nabla\left(\frac{1}{\rho}\right),
+\qquad
+\nabla\left(\frac{1}{\rho}\right) = -\frac{1}{\rho^2}\nabla\rho .
+$$<p>
+Therefore</p>
+$$
+\nabla\left(\frac{p}{\rho}\right) = \frac{1}{\rho}\nabla p - \frac{p}{\rho^2}\nabla\rho,
+\qquad\text{i.e.}\qquad
+\boxed{\;\frac{\nabla p}{\rho} = \nabla\left(\frac{p}{\rho}\right) + \frac{p}{\rho^2}\nabla\rho\;} \tag{C}
+$$<p>
+<strong>Step 3 — discretize the two terms of (C) at $x_i$.</strong></p>
+<ul>
+<li>First term $\nabla(p/\rho)$: use SPH gradient with $A = p/\rho$:
+
+$$
+\nabla\left(\frac{p}{\rho}\right)\bigg|_{x_i}
+= \sum_j m_j\, \frac{p_j/\rho_j}{\rho_j}\, \nabla W_{ij}
+= \sum_j m_j \frac{p_j}{\rho_j^2}\, \nabla W_{ij}.
+$$</li>
+<li>Second term $\frac{p_i}{\rho_i^2}\nabla\rho$: use the density gradient $\nabla\rho(x_i) = \sum_j m_j \nabla W_{ij}$:
+
+$$
+\frac{p_i}{\rho_i^2}\, \nabla\rho(x_i) = \frac{p_i}{\rho_i^2}\sum_j m_j \nabla W_{ij}
+= \sum_j m_j \frac{p_i}{\rho_i^2}\, \nabla W_{ij}.
+$$
+<strong>Step 4 — combine.</strong> Both terms are sums over $j$ of $m_j\nabla W_{ij}$; factor them:</li>
+</ul>
+$$
+\frac{\nabla p(x_i)}{\rho_i} = \sum_j m_j \left(\frac{p_i}{\rho_i^2} + \frac{p_j}{\rho_j^2}\right)\nabla W_{ij}.
+$$<p>
+Multiply by $-m_i$ (from (A)):</p>
+$$
+\boxed{\;F^p_i(t) = -m_i \sum_j m_j \left(\frac{p_i(t)}{\rho_i^2(t)} + \frac{p_j(t)}{\rho_j^2(t)}\right)\nabla W_{ij}(t)\;} \tag{2}
+$$<p>
+<strong>Step 5 — verify momentum conservation.</strong> Swap $i \leftrightarrow j$: the bracket $p_i/\rho_i^2 + p_j/\rho_j^2$ is invariant, $\nabla W_{ji} = -\nabla W_{ij}$, so $F^p_{j\leftarrow i} = -F^p_{i\leftarrow j}$. <strong>Newton&rsquo;s third law holds.</strong> This symmetric form is the reason the paper uses it (it is attributed to [1] = Gingold &amp; Monaghan).
+<em>Physical notes:</em> on the free surface a particle has no neighbors on the outside, so the sum only contains interior neighbors with positive pressure, pushing it inward — the atmosphere pushing on the surface, automatic. And if $p = 0$ everywhere, $F^p = 0$ — no spurious forces.</p>
+<h2 id="the-iisph-derivation-paper-sec-21">The IISPH derivation (paper Sec. 2.1)
+</h2><h3 id="the-continuity-equation">The continuity equation
+</h3><p><strong>Conservation of mass</strong> for a fluid parcel of density $\rho$ and volume $V$:
+$m = \rho V$ is constant, so its material derivative vanishes:</p>
+$$
+\frac{D(\rho V)}{Dt} = V\frac{D\rho}{Dt} + \rho\frac{DV}{Dt} = 0
+\quad\Longrightarrow\quad
+\frac{D\rho}{Dt} = -\rho\,\frac{1}{V}\frac{DV}{Dt}.
+$$<p>
+The relative rate of volume change of a parcel equals the divergence of the velocity field, $\frac{1}{V}\frac{DV}{Dt} = \nabla\cdot v$ (divergence = local expansion rate). Hence the <strong>continuity equation</strong>:</p>
+$$
+\frac{D\rho}{Dt} = -\rho\, \nabla\cdot v. \tag{continuity}
+$$<p>
+<em>Meaning:</em> $\nabla\cdot v &gt; 0$ (particles moving apart) lowers the density; $\nabla\cdot v &lt; 0$ raises it.</p>
+<h3 id="sph-discretization-of-the-divergence">SPH discretization of the divergence
+</h3><p>We need $\nabla\cdot v$ at particle $i$ in terms of kernel functions. Use the vector product rule with $f = \rho$:</p>
+$$
+\nabla\cdot(\rho v) = \rho\,\nabla\cdot v + v\cdot\nabla\rho
+\quad\Longrightarrow\quad
+\nabla\cdot v = \frac{1}{\rho}\left(\nabla\cdot(\rho v) - v\cdot\nabla\rho\right).
+$$<p>
+Discretize both terms at $x_i$ with SPH interpolation ($A = \rho v$ for the first, $A=\rho$ for the second):</p>
+$$
+\nabla\cdot(\rho v)(x_i) \approx \sum_j m_j\, v_j\cdot\nabla W_{ij},
+\qquad
+\nabla\rho(x_i) \approx \sum_j m_j\, \nabla W_{ij}.
+$$<p>
+(The gradient acts only on $W$; particle values $v_j, \rho_j$ are constants.) Substitute and collect:</p>
+$$
+\nabla\cdot v_i = \frac{1}{\rho_i}\left(\sum_j m_j\, v_j\cdot\nabla W_{ij} - v_i\cdot\sum_j m_j\nabla W_{ij}\right)
+= \frac{1}{\rho_i}\sum_j m_j\,(v_j - v_i)\cdot\nabla W_{ij}.
+$$<p>
+With the relative velocity $v_{ij} := v_i - v_j$, we have $v_j - v_i = -v_{ij}$, so:</p>
+$$
+\boxed{\;\nabla\cdot v_i = -\frac{1}{\rho_i}\sum_j m_j\, v_{ij}\cdot\nabla W_{ij}\;} \tag{paper Sec.2.1}
+$$<h3 id="discretize-the-continuity-equation-paper-eqn-3">Discretize the continuity equation (paper Eqn. 3)
+</h3><p>Plug the SPH divergence into the continuity equation at particle $i$:</p>
+$$
+\frac{D\rho_i}{Dt} = -\rho_i\, \nabla\cdot v_i
+= -\rho_i \left(-\frac{1}{\rho_i}\sum_j m_j v_{ij}\cdot\nabla W_{ij}\right)
+= \sum_j m_j\, v_{ij}\cdot\nabla W_{ij}.
+$$<p>
+Now discretize the time derivative with a <strong>forward difference</strong> on the particle, and evaluate the right-hand side at the <strong>future</strong> time $t+\Delta t$ (this is where the implicitness comes from):</p>
+$$
+\frac{\rho_i(t+\Delta t) - \rho_i(t)}{\Delta t}
+= \sum_j m_j\, v_{ij}(t+\Delta t)\cdot\nabla W_{ij}(t). \tag{3}
+$$<p>
+Note: the kernel gradient is evaluated at time $t$ (known), while the velocities are at $t+\Delta t$ (unknown). Using the known $\nabla W_{ij}(t)$ instead of $\nabla W_{ij}(t+\Delta t)$ introduces only an $O(\Delta t)$ error (same order as the rest of the discretization) but avoids recomputing the neighborhood — the paper&rsquo;s &ldquo;velocity-based&rdquo; source term (Sec. 2.2).</p>
+<h3 id="semi-implicit-euler-split-of-the-velocity">Semi-implicit Euler split of the velocity
+</h3><p>Newton&rsquo;s law per particle: $m_i \dot v_i = F^{adv}_i + F^p_i$, where $F^{adv}$ collects all known non-pressure forces (gravity, viscosity, surface tension). A semi-implicit Euler step:</p>
+$$
+v_i(t+\Delta t) = v_i(t) + \Delta t\, \frac{F^{adv}_i(t) + F^p_i(t)}{m_i}.
+$$<p>
+<strong>Prediction (projection&rsquo;s predict step):</strong> drop the pressure forces and define the <em>intermediate (advected) velocity</em></p>
+$$
+v^{adv}_i = v_i(t) + \Delta t\, \frac{F^{adv}_i(t)}{m_i}. \tag{4a}
+$$<p>
+Then the future velocity is $v_i(t+\Delta t) = v^{adv}_i + \Delta t, F^p_i(t)/m_i$.
+<strong>Predicted density:</strong> plug the predicted velocities into (3) (with $\rho_i(t+\Delta t)$ replaced by the predicted value):</p>
+$$
+\rho^{adv}_i = \rho_i(t) + \Delta t \sum_j m_j\, v^{adv}_{ij}\cdot\nabla W_{ij}(t). \tag{4}
+$$<p>
+Everything on the right is known. $\rho^{adv}_i$ is the density that the particles would have after one step <em>if no pressure acted</em>.</p>
+<h3 id="the-pressure-equation-paper-eqn-5">The pressure equation (paper Eqn. 5)
+</h3><p>We now demand: after the full step, the density is exactly the rest density, $\rho_i(t+\Delta t) = \rho_0$ (<strong>density invariance condition</strong>). Write (3) for the full step using $v(t+\Delta t) = v^{adv} + \Delta t F^p/m$:</p>
+$$
+\rho_i(t+\Delta t) = \rho_i(t) + \Delta t \sum_j m_j \left(v^{adv}_{ij} + \Delta t\left(\frac{F^p_i}{m_i} - \frac{F^p_j}{m_j}\right)\right)\cdot\nabla W_{ij}.
+$$<p>
+Split the sum: the $v^{adv}$ part is exactly $\rho^{adv}_i - \rho_i(t)$ by (4). Setting $\rho_i(t+\Delta t) = \rho_0$:</p>
+$$
+\rho_0 = \rho^{adv}_i + \Delta t^2 \sum_j m_j \left(\frac{F^p_i}{m_i} - \frac{F^p_j}{m_j}\right)\cdot\nabla W_{ij},
+$$<p>
+i.e.</p>
+$$
+\boxed{\;\Delta t^2 \sum_j m_j \left(\frac{F^p_i}{m_i} - \frac{F^p_j}{m_j}\right)\cdot\nabla W_{ij}
+= \rho_0 - \rho^{adv}_i\;} \tag{5}
+$$<p>
+<strong>Interpretation:</strong> the left side is &ldquo;the density change caused by the pressure forces&rdquo;;
+the right side is &ldquo;the density deficit that must be repaired&rdquo;. This is the discrete pressure Poisson equation (PPE) of the method.</p>
+<h3 id="the-linear-system-paper-eqn-6">The linear system (paper Eqn. 6)
+</h3><p>$F^p$ depends <em>linearly</em> on the unknown pressures $p_j$ through (2). Substituting (2) into (5), each equation becomes</p>
+$$
+\sum_j a_{ij}\, p_j = b_i, \qquad b_i := \rho_0 - \rho^{adv}_i. \tag{6}
+$$<p>
+One equation and one unknown pressure per particle: $A p = b$ with the &ldquo;source term&rdquo; $b_i = \rho_0 - \rho^{adv}_i$.
+<em>Remark (paper Sec. 2.2):</em> the paper prefers this <em>density</em> source term over the <em>divergence</em> source term $\nabla\cdot v^{adv}$ used by some ISPH variants, because a divergence constraint accumulates unperceived volume loss over time in Lagrangian methods, whereas a density constraint directly monitors volume.</p>
+<h2 id="solving-the-system-relaxed-jacobi-paper-sec-31">Solving the system: relaxed Jacobi (paper Sec. 3.1)
+</h2><p>We never form the matrix $A$ explicitly (&ldquo;matrix-free&rdquo;). We need two ingredients for the Jacobi update of row $i$: the diagonal $a_{ii}$, and the off-diagonal action $\sum_{j\neq i} a_{ij} p^l_j$.</p>
+<h3 id="extracting-the-coefficients-the-displacement-of-9">Extracting the coefficients: the displacement of (9)
+</h3><p>Substitute the pressure force (2) into the pressure-induced displacement $\Delta t^2 F^p_i/m_i$ and separate the term proportional to $p_i$ from the terms proportional to the neighbors&rsquo; pressures $p_j$:</p>
+$$
+\begin{aligned}
+\Delta t^2 \frac{F^p\_i}{m\_i}
+&= -\Delta t^2 \sum\_j m\_j \left(\frac{p\_i}{\rho\_i^2} + \frac{p\_j}{\rho\_j^2}\right)\nabla W\_{ij} \\
+&= \underbrace{\left(-\Delta t^2 \sum\_j \frac{m\_j}{\rho\_i^2}\nabla W\_{ij}\right)}_{=:\, d\_{ii}} p\_i + \sum\_j \underbrace{\left(-\Delta t^2 \frac{m\_j}{\rho\_j^2}\nabla W\_{ij}\right)}_{=:\, d\_{ij}} p\_j .
+\end{aligned}
+\tag{9}
+$$<p><strong>IMPORTANT — these $d$&rsquo;s are vectors</strong> ($\nabla W_{ij}$ is a vector). The &ldquo;product&rdquo; $d_{ii} p_i$ is a scalar-times-vector; when a $d$ appears inside a sum multiplied by $m_j\nabla W_{ij}$ later, the pairing is a dot product.
+<em>Meaning:</em> $d_{ii} p_i$ = the displacement of particle $i$ caused by <em>its own</em> pressure;
+$d_{ij} p_j$ = the displacement caused by <em>neighbor</em> $j$&rsquo;s pressure.</p>
+<h3 id="assembling-a_ii-paper-eqns-1012">Assembling $a_{ii}$ (paper Eqns. 10–12)
+</h3><p>Plug (9) into (5). The displacement difference in (5) is</p>
+$$
+\Delta t^2\left(\frac{F^p_i}{m_i} - \frac{F^p_j}{m_j}\right) = \left(d_{ii} p_i + \sum_j d_{ij} p_j\right) - \left(d_{jj} p_j + \sum_k d_{jk} p_k\right),
+$$<p>
+where $j$ runs over the neighbors of $i$, and $k$ over the neighbors of $j$ — note the <strong>neighbors of the neighbors</strong> appear (second ring). Equation (5) becomes</p>
+$$
+\rho_0 - \rho^{adv}_i
+= \sum_j m_j \left( d_{ii} p_i + \sum_j d_{ij} p_j - d_{jj} p_j - \sum_k d_{jk} p_k \right)\cdot\nabla W_{ij}. \tag{10}
+$$<p>
+(Here and below the inner sum $\sum_j d_{ij} p_j$ runs over the same neighbor set as the outer sum; to avoid confusion we will write it as $\sum_{j&rsquo;} d_{ij&rsquo;} p_{j&rsquo;}$ when needed.)
+<strong>Separate $p_i$.</strong> The value $p_i$ appears in two places:</p>
+<ol>
+<li>The explicit $d_{ii} p_i$ term.</li>
+<li>Inside $\sum_k d_{jk} p_k$ when $k = i$ — this is $d_{ji} p_i$.
+Split the $k$-sum accordingly:</li>
+</ol>
+$$
+\sum_k d_{jk} p_k = \sum_{k\neq i} d_{jk} p_k + d_{ji}\, p_i. \tag{11}
+$$<p>
+(There is no $p_i$ inside $\sum_{j&rsquo;} d_{ij&rsquo;} p_{j&rsquo;}$ because $j&rsquo; = i$ would give $d_{ii} p_i = -\Delta t^2 (m_i/\rho_i^2)\nabla W_{ii} p_i = 0$ — the kernel gradient at the origin vanishes, requirement 5 of Prerequisite §3.)
+Collecting all terms proportional to $p_i$ in (10): from the first part, $\sum_j m_j, d_{ii}\cdot\nabla W_{ij}, p_i$ (note $d_{ii}$ does not depend on the outer index $j$), and from (11), $-\sum_j m_j, d_{ji}\cdot\nabla W_{ij}, p_i$. Hence the diagonal coefficient is</p>
+$$
+\boxed{\;a_{ii} = \sum_j m_j\, (d_{ii} - d_{ji})\cdot\nabla W_{ij}\;} \tag{12}
+$$<p>
+a <strong>scalar</strong> (dot products), as required for the Jacobi denominator.</p>
+<h3 id="the-relaxed-jacobi-update-paper-eqns-8-and-13">The relaxed Jacobi update (paper Eqns. 8 and 13)
+</h3><p>The generic relaxed Jacobi formula for (6) is (8):</p>
+$$
+p^{l+1}_i = (1-\omega)\, p^l_i + \omega\, \frac{1}{a_{ii}}\left(\rho_0 - \rho^{adv}_i - \sum_{j\neq i} a_{ij} p^l_j\right). \tag{8}
+$$<p>
+Instead of computing $a_{ij}$ explicitly, we use the $d$-form of the off-diagonal action from (10), keeping only the parts that do <strong>not</strong> contain $p_i$ (those parts went into $a_{ii}$). The result is the paper&rsquo;s Eqn. 13:</p>
+$$
+p^{l+1}_i = (1-\omega)\, p^l_i + \frac{\omega}{a_{ii}}\left[\rho_0 - \rho^{adv}_i - \sum_j m_j \left( \sum_{j'} d_{ij'} p^l_{j'} - d_{jj} p^l_j - \sum_{k\neq i} d_{jk} p^l_k \right)\cdot\nabla W_{ij} \right]. \tag{13}
+$$<h3 id="efficient-implementation-paper-sec-311">Efficient implementation (paper Sec. 3.1.1)
+</h3><p>Two passes per iteration, both over all particles, no data dependencies between them (parallel-friendly):</p>
+<ul>
+<li>
+<p><strong>Pass 1:</strong> compute and store, per particle $i$, $S_i := \sum_{j} d_{ij} p^l_j = \Delta t^2 \sum_j \left(-\frac{m_j}{\rho_j^2}\nabla W_{ij}\right) p^l_j$.</p>
+</li>
+<li>
+<p><strong>Pass 2:</strong> for each particle $i$, compute $p^{l+1}_i$ with (13). The term $\sum_{k\neq i} d_{jk} p^l_k$ is obtained from the stored value at neighbor $j$ as $S_j - d_{ji} p^l_i$.
+Storage per particle: only $a_{ii}$, $d_{ii}$, $S_i$, $\rho_i$, $\rho^{adv}_i$, $p_i$ and $v^{adv}_i$ — the paper says &ldquo;seven scalar values per particle&rdquo; (plus the density/velocity fields themselves). $d_{ij}$ and $a_{ij}$ are never stored.
+<strong>Convergence parameters (paper observations):</strong></p>
+</li>
+<li>
+<p>Relaxation factor $\omega = 0.5$ is optimal across all their settings.</p>
+</li>
+<li>
+<p>Initial pressure $p^0_i = 0.5, p_i(t-\Delta t)$ (warm start from the previous step; plain $p_i(t-\Delta t)$ or $0$ converge slower).</p>
+</li>
+<li>
+<p>Convergence criterion: <em>average</em> density error $\eta = 0.1%$ recommended (max-error of 1% causes surface oscillations; average error controls global volume change).</p>
+</li>
+<li>
+<p>At least 2 iterations regardless ($l &lt; 2$ guard in Algorithm 1).</p>
+</li>
+<li>
+<p><strong>Negative pressure clamping:</strong> pressures can come out negative when $\rho^{adv}_i &lt; \rho_0$, producing <em>attracting</em> pressure forces — exaggerated &ldquo;surface tension&rdquo; that swallows splashes (paper Fig. 2). EOS solvers avoid this by clamping negative pressures to zero; IISPH does the same, clamping $p_i \ge 0$ each iteration.
+(This is only safe with Jacobi; see §4.5.)</p>
+</li>
+</ul>
+<h3 id="why-not-conjugate-gradient-paper-sec-32">Why not Conjugate Gradient (paper Sec. 3.2)
+</h3><p>The paper implemented CG with diagonal preconditioning but reports two problems:</p>
+<ol>
+<li><strong>Non-symmetry.</strong> $a_{ij}$ is scaled by $m_i/\rho_i^2$, so $a_{ij} \neq a_{ji}$. CG requires a symmetric positive-definite matrix. One could <em>force</em> symmetry by assuming $\rho_i = \rho_j = \rho_0$, $m_i = m_j$ — valid for uniform sampling but wrong for adaptive or multi-phase SPH. Relaxed Jacobi does not care about symmetry.</li>
+<li><strong>Negative-pressure clamping.</strong> Clamping between CG iterations destroys the conjugate-gradient recurrence (the system changes mid-solve) and causes instabilities.
+Jacobi tolerates clamping because each update only uses the current values.
+Conclusion of the paper: for this system, relaxed Jacobi is the practical choice.</li>
+</ol>
+<h2 id="boundary-handling-paper-sec-4">Boundary handling (paper Sec. 4)
+</h2><h3 id="the-problem-and-the-chosen-scheme">The problem and the chosen scheme
+</h3><p>Fluid particles near a solid boundary have no neighbors on the solid side, so nothing stops them from penetrating the wall. IISPH is agnostic about boundary handling; the paper pairs it with the rigid-fluid coupling of [29] (Akinci et al. 2012): a layer of <strong>boundary particles</strong> $b$ is placed on the solid surface. They contribute to the density and forces of fluid particles but do not move and carry no pressure of their own.</p>
+<h3 id="normalizing-the-boundary-contribution-psib">Normalizing the boundary contribution: $\Psi^b$
+</h3><p>Boundary particles are not fluid; giving them a raw mass would mis-calibrate the density near walls. The scheme normalizes by the <em>number density</em> of the boundary at the fluid particle:</p>
+$$
+\delta^b_i \equiv \sum_{b} W^b_{ib}, \qquad
+\Psi^b(\rho^0_i) = \frac{\rho^0_i}{\delta^b_i}.
+$$<ul>
+<li>$\delta^b_i$ = sum of boundary kernel values at $x_i$ — &ldquo;how densely the wall is packed&rdquo; in kernel units.</li>
+<li>$\Psi^b$ = the equivalent fluid density contributed by one boundary particle, chosen so that the boundary contributes to $\rho_i$ on the same scale as fluid neighbors.</li>
+</ul>
+<h3 id="density-estimation-with-boundaries-paper-eqn-14">Density estimation with boundaries (paper Eqn. 14)
+</h3><p>Every fluid term gets a boundary counterpart:</p>
+$$
+\begin{align}
+\rho_i(t+\Delta t) =& \underbrace{\sum_j m_j W_{ij}}_{\text{fluid static}} + \underbrace{\sum_b \Psi^b(\rho^0_i) W^b_{ib}}_{\text{boundary static}} + \Delta t \sum_j m_j v_{ij}(t+\Delta t)\cdot\nabla W_{ij} \notag \\
+& + \Delta t \sum_b \Psi^b(\rho^0_i) v^b_{ib}(t+\Delta t)\cdot\nabla W^b_{ib}, \tag{14}
+\end{align}
+$$<p>
+with $v^b_{ib} = v_i - v_b$ the relative velocity to the boundary particle.
+<strong>Weak-coupling assumption (paper Sec. 4):</strong> during the pressure iterations the boundary velocity $v_b$ is held constant (equal to its value at $t$). This makes all boundary terms known, so they enter the prediction and the matrix coefficients but add no unknowns. (The reaction forces on the solid are felt next step.)
+The predicted density with boundaries is therefore</p>
+$$
+\rho^{adv}_i = \sum_j m_j W_{ij} + \sum_b \Psi^b W^b_{ib} + \Delta t \sum_j m_j v^{adv}_{ij}\cdot\nabla W_{ij} + \Delta t \sum_b \Psi^b (v^{adv}_i - v_b)\cdot\nabla W^b_{ib}.
+$$<h3 id="boundary-pressure-force-paper-eqn-15">Boundary pressure force (paper Eqn. 15)
+</h3><p>Boundary particles have no pressure, but they must push the fluid back. The force on fluid particle $i$ from the boundary ([29]) is the fluid-side analog with the $p_b$ term removed:</p>
+$$
+F^p_{i\leftarrow b} = -m_i\, \Psi^b(\rho^0_i)\, \frac{p_i}{\rho_i^2}\, \nabla W^b_{ib}. \tag{15}
+$$<p>
+<em>Check:</em> it is proportional to the fluid&rsquo;s own pressure $p_i$ (the wall pushes back as hard as the water presses), points along $-\nabla W^b_{ib}$ (away from the wall), and uses $\Psi^b$ as the &ldquo;mass&rdquo; of the boundary particle.</p>
+<h3 id="modifying-d_ii-and-the-jacobi-update">Modifying $d_{ii}$ and the Jacobi update
+</h3><p>Substituting (15) into the displacement $\Delta t^2 F^p_i/m_i$ adds a boundary term to the $p_i$ coefficient (the boundary force is proportional to $p_i$):</p>
+$$
+\Delta t^2 \frac{F^p_i}{m_i} = \sum_j d_{ij} p_j + \underbrace{\left(-\Delta t^2 \sum_j \frac{m_j}{\rho_i^2}\nabla W_{ij} - \Delta t^2 \sum_b \Psi^b \frac{1}{\rho_i^2}\nabla W^b_{ib}\right)}_{d_{ii}} p_i.
+$$<p>
+So $d_{ii}$ picks up $- \Delta t^2 \sum_b \Psi^b \nabla W^b_{ib}/\rho_i^2$, while $d_{ij}$ is unchanged (boundary particles have no pressure). Since $a_{ii}$ is built from $d_{ii}$ via (12), the diagonal automatically includes the boundary.
+The Jacobi update (paper Eqn. 16) gains one extra boundary sum:</p>
+$$
+\begin{aligned}
+p^{l+1}_i
+=& (1-\omega) p^l_i + \frac{\omega}{a_{ii}}\Bigg[ \rho_0 - \rho^{adv}_i \\
+&- \sum_j m_j \big( S_i - d_{jj} p^l_j - (S_j - d_{ji} p^l_i) \big)\cdot\nabla W_{ij} \\
+&- \sum_b \Psi^b\, S_i \cdot\nabla W^b_{ib} \Bigg],
+\end{aligned} \tag{16}
+$$<p>
+where $S_i = \sum_j d_{ij} p^l_j$ is the stored Pass-1 value. The last term is the &ldquo;pressure displacement $S_i$ applied onto the boundary kernel gradient&rdquo; — the fluid pushing against the wall.</p>
+<h2 id="where-the-viscosity-enters-the-pipeline-paper-sec-5-23">Where the viscosity enters the pipeline (paper Sec. 5, [23])
+</h2><p>The paper&rsquo;s framework adds Monaghan&rsquo;s artificial viscosity (Prerequisite §8) as a <strong>non-pressure force</strong>. In Algorithm 1 it sits inside &ldquo;predict advection&rdquo;:</p>
+$$
+\mathbf{v}^{\text{adv}}_i = \mathbf{v}_i + \Delta t\, \frac{\mathbf{F}^{\text{adv}}_i}{m_i}
+= \mathbf{v}_i + \Delta t\, \big(\mathbf{g} + \mathbf{a}^{\text{visc}}_i\big),
+$$<p>
+with $\mathbf{a}^{\text{visc}}_i = \sum_j m_j \Pi_{ij}\nabla_{!i}W_{ij}$. It is not part of the pressure equation at all — the pressure solver only ever sees the advected velocities. This is exactly why the paper can keep its IISPH derivation clean: viscosity, gravity and surface tension are all &ldquo;known&rdquo; non-pressure forces.</p>
+<h2 id="algorithm-1--the-complete-time-step-paper-assembled">Algorithm 1 — the complete time step (paper, assembled)
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Input: particle state (x_i, v_i), masses m_i, rest density rho_0,
+</span></span><span class="line"><span class="cl">      kernel support h, time step dt, relaxation omega=0.5, tolerance eta
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">for each time step:
+</span></span><span class="line"><span class="cl"># ---- PREDICT ADVECTION ----
+</span></span><span class="line"><span class="cl">for all i:
+</span></span><span class="line"><span class="cl">  rho_i    = sum_j m_j W_ij                          # density (Sec.2)
+</span></span><span class="line"><span class="cl">  v^adv_i  = v_i + dt * F^adv_i / m_i                # non-pressure forces only (4a)
+</span></span><span class="line"><span class="cl">  d_ii     = -dt^2 * sum_j (m_j / rho_i^2) * gradW_ij   # vector (9)
+</span></span><span class="line"><span class="cl">for all i:
+</span></span><span class="line"><span class="cl">  rho^adv_i = rho_i + dt * sum_j m_j (v^adv_i - v^adv_j) . gradW_ij   # (4)
+</span></span><span class="line"><span class="cl">  p^0_i     = 0.5 * p_i_prev
+</span></span><span class="line"><span class="cl">  a_ii      = sum_j m_j (d_ii - d_ji) . gradW_ij     # scalar (12)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># ---- PRESSURE SOLVE ----
+</span></span><span class="line"><span class="cl">l = 0
+</span></span><span class="line"><span class="cl">while (avg_rho_error &gt; eta) or (l &lt; 2):
+</span></span><span class="line"><span class="cl">  # pass 1
+</span></span><span class="line"><span class="cl">  for all i:
+</span></span><span class="line"><span class="cl">    S_i = -dt^2 * sum_j (m_j / rho_j^2) p^l_j * gradW_ij     # store
+</span></span><span class="line"><span class="cl">  # pass 2
+</span></span><span class="line"><span class="cl">  for all i:
+</span></span><span class="line"><span class="cl">    p^{l+1}_i = (1-omega) p^l_i
+</span></span><span class="line"><span class="cl">              + omega/a_ii * ( rho_0 - rho^adv_i
+</span></span><span class="line"><span class="cl">                  - sum_j m_j ( S_i - d_jj p^l_j - (S_j - d_ji p^l_i) ) . gradW_ij
+</span></span><span class="line"><span class="cl">                  - sum_b Psi^b S_i . gradW^b_ib )            # (13)/(16)
+</span></span><span class="line"><span class="cl">    clamp p^{l+1}_i &gt;= 0
+</span></span><span class="line"><span class="cl">    p_i = p^{l+1}_i
+</span></span><span class="line"><span class="cl">  l = l + 1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># ---- INTEGRATION (CORRECT) ----
+</span></span><span class="line"><span class="cl">for all i:
+</span></span><span class="line"><span class="cl">  v_i = v^adv_i + dt * F^p_i / m_i                  # pressure force (2)
+</span></span><span class="line"><span class="cl">  x_i = x_i + dt * v_i
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Cost:</strong> two particle loops per pressure iteration (vs. three in PCISPH), no data dependencies inside each loop, so it is trivially parallel. The paper reports up to 6.2× faster pressure solves than PCISPH and handles up to 40M particles on a 16-core desktop.</p>
+<hr>
+<h1 id="what-the-paper-reports-sec-5-conclusions">What the paper reports (Sec. 5, conclusions)
+</h1><ul>
+<li>Breaking dam (100K particles, $r = 0.025$ m, $\eta = 0.01%$): IISPH handles $\Delta t$ up to 0.005 s where PCISPH caps at 0.0025 s; pressure solve up to 6.2× faster.</li>
+<li>Blender scene (90K particles, $r = 0.05$ m, $\eta = 0.1%$): up to 5.2× faster.</li>
+<li>Vs. ISPH [13] (Laplacian via second kernel derivatives): IISPH&rsquo;s discretization reaches 0.01% compression in 23 iterations where ISPH needs 231 (Fig. 8); overall ~4× faster;  velocity-based source term allows 4× larger time steps than position-based.</li>
+<li>Vs. constraint fluids [15]: 14× less compression for the same iteration count.</li>
+<li>Large scale: city flood 6M/40M particles, cargo ship 30M particles at ~44 s/step.</li>
+<li><strong>CFL condition</strong> for the time step: $\Delta t = \min(0.4, h / |v^{adv}|, \dots)$.
+<strong>Limitations acknowledged:</strong> iteration count still grows (faster than linearly) with $\Delta t$; exaggerated cohesion from negative pressures under CG; no correction of the SPH density error at the free surface.</li>
+</ul>
+<hr>
+<h1 id="appendix-surface-tension-and-surface-reconstruction">Appendix: surface tension and surface reconstruction
+</h1><h2 id="a-surface-tension-paper-5-becker--teschner-2007">A. Surface tension (paper [5]: Becker &amp; Teschner 2007)
+</h2><p>The paper models surface tension as a <strong>cohesion force</strong>: nearby particles attract, which makes the free surface contract into the minimal-area shape. In normalized form:</p>
+$$\mathbf{a}_i^{tens} = -k\sum_j \widetilde{W}_{ij}\, \mathbf{x}_{ij}$$<ul>
+<li>$k$: tension strength (we use 0.05).</li>
+<li>$\widetilde{W}$: the kernel, <strong>clamped at the particle diameter</strong> ($r=\Delta x$)
+so overlapping particles do not feel an exploding force.</li>
+<li>A fluid-wall cohesion term (wetting) uses the boundary volume $V_b$:
+
+$$-k_b\frac{V_b}{V}\,W\,(\mathbf{x}_i-\mathbf{x}_b)$$</li>
+<li>Becker&rsquo;s full model also has a curvature (repulsion) part; we implement only the cohesion part (see the honest-audit list in the code notes).</li>
+</ul>
+<h2 id="b-surface-reconstruction-paper-32-akinci-et-al-2012">B. Surface reconstruction (paper [32]: Akinci et al. 2012)
+</h2>
+    <blockquote>
+        <p>&ldquo;Parallel surface reconstruction for particle-based fluids&rdquo;, CGF 32(1), 2012. The scalar field is the <strong>distance to the weighted centroid</strong>, NOT a per-particle implicit plane. That is what keeps the surface smooth and crack-free in motion.</p>
+
+    </blockquote>
+<ol>
+<li><strong>Color field</strong> (Mueller et al. 2003): $c_i=\sum_j V_j W_{ij}$.</li>
+<li><strong>Surface particles</strong>: $c_i&lt;0.8$ <strong>or</strong> fewer than 25 neighbours (catches splashes).</li>
+<li><strong>Weighted centroid</strong> (paper Eq. 4):
+
+$$\bar{x}(\mathbf{x})=\frac{\sum_j \mathbf{x}_j k(|\mathbf{x}-\mathbf{x}_j|/R)}{\sum_j k(\ldots)},\qquad k(s)=\max(0,(1-s^2)^3),\quad R=4r$$</li>
+<li><strong>Scalar field</strong> (paper Eq. 1): $\varphi(\mathbf{x})=|\mathbf{x}-\bar{x}|-r$. Computed only at &ldquo;surface vertices&rdquo; (grid corners inside a $2r$ AABB of a surface particle); other corners are inside/outside sentinels via the color field.</li>
+<li><strong>Marching</strong> extracts $\varphi=0$; vertex normals = $+\nabla\varphi$ (outward).</li>
+</ol>
+<p>The paper&rsquo;s factor $f$ (Eq. 2, based on the largest eigenvalue of $\partial\bar{x}/\partial\mathbf{x}$) is used to fix concave regions; we take $f=1$ (simplification).</p>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+        <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 My Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.818fb93f0b1f0a8fdd1cd9cfaea240c05d307017d1d62e7d2526785028b1ff9b.js" defer></script>
+
+
+    </body>
+</html>

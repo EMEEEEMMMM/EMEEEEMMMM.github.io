@@ -461,7 +461,7 @@ $$
 $$
 Two forces in the project:
 1. Buoyancy $\mathbf{f} = (0, \alpha \cdot \rho, 0)$  $v^{n+1} = v^{n} + \alpha \cdot \rho \cdot \Delta t$
-2. User $\mathbf{f}(\mathbf{x}) = \mathbf{v}_{input} \cdot \max\left(0, 1 - \frac{\lvert \mathbf{x} - \mathbf{x}_{mouse}\rvert}{r}\right)$
+2. User $\mathbf{f}(\mathbf{x}) = \mathbf{v}\_{input} \cdot \max\left(0, 1 - \frac{\lvert \mathbf{x} - \mathbf{x}\_{mouse}\rvert}{r}\right)$
 
 ### Advect
 We care about $-(\mathbf{u} \cdot \nabla)\mathbf{u}$ in this stage:
