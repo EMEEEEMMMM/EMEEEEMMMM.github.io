@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="IISPH — Reproduction Notes (Paper) Paper: Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner. Implicit Incompressible SPH. IEEE Transactions on Visualization and Computer Graphics, July 2013. DOI: 10.1109/TVCG.2013.105\nPrerequisite Knowledge Dirac delta function The Dirac delta $\\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its sifting property: for any continuous function $f$,\n$$ \\int_{-\\infty}^{+\\infty} f(x)\\, \\delta(x - a)\\, dx = f(a). $$ Intuitively: $\\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="IISPH — Reproduction Notes (Paper) Paper: Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner. Implicit Incompressible SPH. IEEE Transactions on Visualization and Computer Graphics, July 2013. DOI: 10.1109/TVCG.2013.105\n浏览器不支持视频播放 headless, 1920x1080, 120fps, 64000 particles, grid 0.5, DFSPH Prerequisite Knowledge Dirac delta function The Dirac delta $\\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its sifting property: for any continuous function $f$,\n$$ \\int_{-\\infty}^{+\\infty} f(x)\\, \\delta(x - a)\\, dx = f(a). $$ Intuitively: $\\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.\n">
 <title>Implicit Incompressible SPH 1</title>
 
 
@@ -13,12 +13,12 @@
 
 
 <link rel="stylesheet" href="/scss/style.min.0ac18e2dad4589041e5f2a36c819921dfed2760b47389a3f3fb2933ff85e4040.css"><meta property='og:title' content="Implicit Incompressible SPH 1">
-<meta property='og:description' content="IISPH — Reproduction Notes (Paper) Paper: Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner. Implicit Incompressible SPH. IEEE Transactions on Visualization and Computer Graphics, July 2013. DOI: 10.1109/TVCG.2013.105\nPrerequisite Knowledge Dirac delta function The Dirac delta $\\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its sifting property: for any continuous function $f$,\n$$ \\int_{-\\infty}^{+\\infty} f(x)\\, \\delta(x - a)\\, dx = f(a). $$ Intuitively: $\\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.\n">
+<meta property='og:description' content="IISPH — Reproduction Notes (Paper) Paper: Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner. Implicit Incompressible SPH. IEEE Transactions on Visualization and Computer Graphics, July 2013. DOI: 10.1109/TVCG.2013.105\n浏览器不支持视频播放 headless, 1920x1080, 120fps, 64000 particles, grid 0.5, DFSPH Prerequisite Knowledge Dirac delta function The Dirac delta $\\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its sifting property: for any continuous function $f$,\n$$ \\int_{-\\infty}^{+\\infty} f(x)\\, \\delta(x - a)\\, dx = f(a). $$ Intuitively: $\\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.\n">
 <meta property='og:url' content='http://localhost:1313/posts/implicitincompressiblesph/'>
 <meta property='og:site_name' content='My Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2026-08-08T21:06:42&#43;08:00'/><meta property='article:modified_time' content='2026-08-08T21:06:42&#43;08:00'/><meta property='og:image' content='http://localhost:1313/' />
 <meta name="twitter:title" content="Implicit Incompressible SPH 1">
-<meta name="twitter:description" content="IISPH — Reproduction Notes (Paper) Paper: Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner. Implicit Incompressible SPH. IEEE Transactions on Visualization and Computer Graphics, July 2013. DOI: 10.1109/TVCG.2013.105\nPrerequisite Knowledge Dirac delta function The Dirac delta $\\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its sifting property: for any continuous function $f$,\n$$ \\int_{-\\infty}^{+\\infty} f(x)\\, \\delta(x - a)\\, dx = f(a). $$ Intuitively: $\\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.\n"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="IISPH — Reproduction Notes (Paper) Paper: Markus Ihmsen, Jens Cornelis, Barbara Solenthaler, Christopher Horvath, Matthias Teschner. Implicit Incompressible SPH. IEEE Transactions on Visualization and Computer Graphics, July 2013. DOI: 10.1109/TVCG.2013.105\n浏览器不支持视频播放 headless, 1920x1080, 120fps, 64000 particles, grid 0.5, DFSPH Prerequisite Knowledge Dirac delta function The Dirac delta $\\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its sifting property: for any continuous function $f$,\n$$ \\int_{-\\infty}^{+\\infty} f(x)\\, \\delta(x - a)\\, dx = f(a). $$ Intuitively: $\\delta(x-a)$ is infinitely tall, infinitely thin, sits at $x=a$, and has integral $1$. It is the mathematical tool that says &ldquo;all the mass of a point particle is concentrated at one location&rdquo;.\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/' />
     <link rel="shortcut icon" href="/img/avatar.png" />
 
@@ -468,6 +468,20 @@ DOI: 10.1109/TVCG.2013.105</p>
 
     </blockquote>
 <hr>
+<div style="text-align:center;margin:1.6rem 0;">
+<video 
+  controls 
+  muted 
+  loop 
+  preload="metadata"
+  style="max-width:100%;border-radius:8px;"
+>
+  <source src="/videos/output.mp4" type="video/mp4">
+  浏览器不支持视频播放
+</video>
+<br>
+<small style="color:#777;">headless, 1920x1080, 120fps, 64000 particles, grid 0.5, DFSPH</small>
+</div>
 <h1 id="prerequisite-knowledge">Prerequisite Knowledge
 </h1><h2 id="dirac-delta-function">Dirac delta function
 </h2><p>The Dirac delta $\delta(x)$ is the &ldquo;point mass&rdquo; distribution characterized by its <em>sifting property</em>: for any continuous function $f$,</p>

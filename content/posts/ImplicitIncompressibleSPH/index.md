@@ -19,6 +19,23 @@ build:
 >
 ---
 
+<div style="text-align:center;margin:1.6rem 0;">
+<video 
+  controls 
+  muted 
+  loop 
+  preload="metadata"
+  style="max-width:100%;border-radius:8px;"
+>
+  <source src="/videos/output.mp4" type="video/mp4">
+  浏览器不支持视频播放
+</video>
+<br>
+<small style="color:#777;">headless, 1920x1080, 120fps, 64000 particles, grid 0.5, DFSPH</small>
+</div>
+
+
+
 # Prerequisite Knowledge
 
 ## Dirac delta function
