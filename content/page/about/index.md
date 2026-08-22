@@ -12,34 +12,20 @@ menu:
 
 ## Welcome
 
-I am currently a 10th student from Shanghai World Foreign Language Academy.
-
-This blog will documents my journey building **physics engines and simulation systems** from scratch.
-
-Will also include some AI stuff, notes, mathematical stuff.
-
-I am currently a high school student interested in:
+I am currently a 11th high school student from Shanghai World Foreign Language Academy who interested in:
 
 - Physics Simulation
 - Computer Graphics
 - AI
 
-One of my main projects is **AtlasPhys**, a rigid body physics engine that I built to explore the fundamentals of physical simulation.
-
-At present stage, I will gradually write detailed articles explaining the core algorithms behind physics engines, including:
-
-- GJK collision detection
-- EPA penetration depth computation
-- Contact manifold generation
-- Impulse-based collision response
-- Friction models
-- Stacking stability problems
-- Constraint solvers
-
-My goal is to break down the mathematics and implementation details behind these complex systems in a clear and intuitive way from a perspective of a high school student.
-
-After this project, I might document whatever I learn.
+My goal of this blog is to break down the mathematics and implementation details behind those complex systems in a clear and intuitive way from a perspective of a high school student.
 
 Github:
 
 https://github.com/EMEEEEMMMM 
+
+## My resume
+
+<object data="/resume.pdf" type="application/pdf" width="100%" height="1000px">
+  <p>您的浏览器不支持在线预览，请 <a href="/resume.pdf">下载 PDF</a>。</p>
+</object>
