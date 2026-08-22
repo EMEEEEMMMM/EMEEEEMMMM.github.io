@@ -26,6 +26,6 @@ https://github.com/EMEEEEMMMM
 
 ## My resume
 
-<object data="/resume.pdf" type="application/pdf" width="100%" height="1000px">
-  <p>您的浏览器不支持在线预览，请 <a href="/resume.pdf">下载 PDF</a>。</p>
+<object data="/Resume.pdf" type="application/pdf" width="100%" height="1000px">
+  <p>Your browser does not support online preview，please <a href="/resume.pdf">download PDF</a>。</p>
 </object>
